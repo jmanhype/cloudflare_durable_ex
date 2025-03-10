@@ -46,6 +46,9 @@ defmodule CloudflareDurable.MixProject do
       {:mint_web_socket, "~> 1.0"},
       # Utilities
       {:telemetry, "~> 1.2"},
+      # Phoenix integration (optional)
+      {:phoenix, "~> 1.7", optional: true, only: [:dev, :test, :docs]},
+      {:phoenix_live_view, "~> 0.20", optional: true, only: [:dev, :test, :docs]},
       # Testing and documentation
       {:ex_doc, "~> 0.29", only: :dev, runtime: false},
       {:excoveralls, "~> 0.16", only: :test},
@@ -72,6 +75,24 @@ defmodule CloudflareDurable.MixProject do
   end
 
   defp docs do
+    phoenix_modules = if Code.ensure_loaded?(Phoenix) do
+      [
+        "Phoenix Integration": [
+          CloudflareDurable.Phoenix,
+          CloudflareDurable.Phoenix.Channel,
+          CloudflareDurable.Phoenix.DurableServer,
+          CloudflareDurable.Phoenix.Live.DurableComponent,
+          CloudflareDurable.Phoenix.Presence
+        ]
+      ]
+    else
+      [
+        "Phoenix Integration": [
+          CloudflareDurable.Phoenix
+        ]
+      ]
+    end
+
     [
       main: "readme",
       source_url: @source_url,
@@ -90,7 +111,7 @@ defmodule CloudflareDurable.MixProject do
           CloudflareDurable.WebSocket.Connection,
           CloudflareDurable.WebSocket.Supervisor
         ]
-      ]
+      ] ++ phoenix_modules
     ]
   end
 
