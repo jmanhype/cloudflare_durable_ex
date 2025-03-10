@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.37.3">
+    <meta name="project" content="cloudflare_durable v0.2.0">
+
+
+    <title>Contributing to CloudflareDurable — cloudflare_durable v0.2.0</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
+
+    <script defer src="dist/sidebar_items-D8C37856.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-ALU6OERS.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+      <div>
+        <a href="readme.html" class="sidebar-projectName" translate="no">
+cloudflare_durable
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.2.0
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of cloudflare_durable</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Contributing to CloudflareDurable</h1>
+
+
+      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/CONTRIBUTING.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+<p>Thank you for considering contributing to CloudflareDurable! This document outlines the process for contributing to this project.</p><h2 id="code-of-conduct" class="section-heading">
+  <a href="#code-of-conduct" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Code of Conduct</span>
+</h2>
+<p>This project and everyone participating in it is governed by our <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>. By participating, you are expected to uphold this code.</p><h2 id="how-can-i-contribute" class="section-heading">
+  <a href="#how-can-i-contribute" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">How Can I Contribute?</span>
+</h2>
+<h3 id="reporting-bugs" class="section-heading">
+  <a href="#reporting-bugs" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Reporting Bugs</span>
+</h3>
+<p>This section guides you through submitting a bug report. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.</p><p>Before creating bug reports, please check the issue list as you might find out that you don't need to create one. When you are creating a bug report, please include as many details as possible:</p><ul><li><strong>Use a clear and descriptive title</strong> for the issue to identify the problem.</li><li><strong>Describe the exact steps which reproduce the problem</strong> in as many details as possible.</li><li><strong>Provide specific examples to demonstrate the steps</strong>. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples.</li><li><strong>Describe the behavior you observed after following the steps</strong> and point out what exactly is the problem with that behavior.</li><li><strong>Explain which behavior you expected to see instead and why.</strong></li><li><strong>Include screenshots and animated GIFs</strong> which show you following the described steps and clearly demonstrate the problem.</li><li><strong>If the problem is related to performance or memory</strong>, include a CPU profile capture with your report.</li><li><strong>If the problem wasn't triggered by a specific action</strong>, describe what you were doing before the problem happened.</li></ul><h3 id="suggesting-enhancements" class="section-heading">
+  <a href="#suggesting-enhancements" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Suggesting Enhancements</span>
+</h3>
+<p>This section guides you through submitting an enhancement suggestion, including completely new features and minor improvements to existing functionality.</p><ul><li><strong>Use a clear and descriptive title</strong> for the issue to identify the suggestion.</li><li><strong>Provide a step-by-step description of the suggested enhancement</strong> in as many details as possible.</li><li><strong>Provide specific examples to demonstrate the steps</strong>. Include copy/pasteable snippets which you use in those examples.</li><li><strong>Describe the current behavior</strong> and <strong>explain which behavior you expected to see instead</strong> and why.</li><li><strong>Include screenshots and animated GIFs</strong> which help you demonstrate the steps or point out the part of the library which the suggestion is related to.</li><li><strong>Explain why this enhancement would be useful</strong> to most users.</li><li><strong>List some other libraries or frameworks where this enhancement exists.</strong></li></ul><h3 id="pull-requests" class="section-heading">
+  <a href="#pull-requests" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Pull Requests</span>
+</h3>
+<ul><li>Fill in the required template</li><li>Follow the Elixir style guides</li><li>Include tests that verify your changes</li><li>Update documentation as needed</li><li>End all files with a newline</li></ul><h2 id="development-process" class="section-heading">
+  <a href="#development-process" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Development Process</span>
+</h2>
+<h3 id="setting-up-a-development-environment" class="section-heading">
+  <a href="#setting-up-a-development-environment" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Setting Up a Development Environment</span>
+</h3>
+<ol><li>Fork and clone the repository</li><li>Run <a href="https://hexdocs.pm/mix/Mix.Tasks.Deps.Get.html"><code class="inline">mix deps.get</code></a> to install dependencies</li><li>Run <a href="https://hexdocs.pm/mix/Mix.Tasks.Test.html"><code class="inline">mix test</code></a> to ensure everything is working</li></ol><h3 id="coding-conventions" class="section-heading">
+  <a href="#coding-conventions" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Coding Conventions</span>
+</h3>
+<ul><li>We follow the <a href="https://hexdocs.pm/mix/main/Mix.Tasks.Format.html">Elixir Formatting Guidelines</a></li><li>Run <a href="https://hexdocs.pm/mix/Mix.Tasks.Format.html"><code class="inline">mix format</code></a> before committing to ensure consistent formatting</li><li>Run <a href="https://hexdocs.pm/credo/1.7.11/Mix.Tasks.Credo.html"><code class="inline">mix credo</code></a> to check for code style issues</li><li>Run <a href="https://hexdocs.pm/dialyxir/1.4.5/Mix.Tasks.Dialyzer.html"><code class="inline">mix dialyzer</code></a> to perform static analysis</li></ul><h3 id="testing" class="section-heading">
+  <a href="#testing" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Testing</span>
+</h3>
+<ul><li>Include tests for all new features or bug fixes</li><li>Run <a href="https://hexdocs.pm/mix/Mix.Tasks.Test.html"><code class="inline">mix test</code></a> to ensure all tests pass</li><li>Aim for high test coverage with <code class="inline">mix coveralls</code></li></ul><h3 id="documentation" class="section-heading">
+  <a href="#documentation" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Documentation</span>
+</h3>
+<ul><li>Update module documentation using proper <code class="inline">@doc</code> and <code class="inline">@moduledoc</code> attributes</li><li>Keep the README.md up-to-date with changes</li><li>Update the CHANGELOG.md for all notable changes</li></ul><h2 id="releasing" class="section-heading">
+  <a href="#releasing" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Releasing</span>
+</h2>
+<p>The release process is managed by maintainers:</p><ol><li>Update version in <code class="inline">mix.exs</code></li><li>Update <code class="inline">CHANGELOG.md</code> with the new version</li><li>Create a new tag for the version</li><li>Push the tag and GitHub Actions will handle publishing to Hex.pm</li></ol><h2 id="questions" class="section-heading">
+  <a href="#questions" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Questions?</span>
+</h2>
+<p>Feel free to open an issue with your question or contact the maintainers directly. </p>
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="changelog.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+CHANGELOG
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="license.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+LICENSE
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+          <span class="line">
+            <a href="https://hex.pm/packages/cloudflare_durable/0.2.0" class="footer-hex-package">Hex Package</a>
+
+            <a href="https://preview.hex.pm/preview/cloudflare_durable/0.2.0">Hex Preview</a>
+
+              (<a href="https://preview.hex.pm/preview/cloudflare_durable/0.2.0/show/CONTRIBUTING.md">current file</a>)
+
+          </span>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="cloudflare_durable.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.37.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

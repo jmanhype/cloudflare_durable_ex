@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.37.3">
+    <meta name="project" content="cloudflare_durable v0.2.0">
+
+
+    <title>CloudflareDurable.Client — cloudflare_durable v0.2.0</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
+
+    <script defer src="dist/sidebar_items-D8C37856.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-ALU6OERS.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+      <div>
+        <a href="readme.html" class="sidebar-projectName" translate="no">
+cloudflare_durable
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.2.0
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of cloudflare_durable</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">CloudflareDurable.Client</span> 
+      <small class="app-vsn" translate="no">(cloudflare_durable v0.2.0)</small>
+
+    </h1>
+
+      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>Client for interacting with Cloudflare Durable Objects.</p><p>This module provides functions for communicating with Cloudflare Workers and Durable Objects,
+allowing applications to leverage edge-located, stateful storage and processing.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:client_opts/0" data-no-tooltip="" translate="no">client_opts()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:connection_opts/0" data-no-tooltip="" translate="no">connection_opts()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:error_reason/0" data-no-tooltip="" translate="no">error_reason()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:http_body/0" data-no-tooltip="" translate="no">http_body()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:http_headers/0" data-no-tooltip="" translate="no">http_headers()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:http_method/0" data-no-tooltip="" translate="no">http_method()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:http_response/0" data-no-tooltip="" translate="no">http_response()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:http_status/0" data-no-tooltip="" translate="no">http_status()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:method_name/0" data-no-tooltip="" translate="no">method_name()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:object_id/0" data-no-tooltip="" translate="no">object_id()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:t/0" data-no-tooltip="" translate="no">t()</a>
+
+      </div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#call_method/4" data-no-tooltip="" translate="no">call_method(object_id, method, params, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Calls a method on a Durable Object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete_state/3" data-no-tooltip="" translate="no">delete_state(object_id, key, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes a key from a Durable Object's state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_state/3" data-no-tooltip="" translate="no">get_state(object_id, key \\ nil, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets the state of a Durable Object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#initialize/3" data-no-tooltip="" translate="no">initialize(object_id, data, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Initializes a new Durable Object instance.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#open_websocket/2" data-no-tooltip="" translate="no">open_websocket(object_id, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Opens a WebSocket connection to a Durable Object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update_state/4" data-no-tooltip="" translate="no">update_state(object_id, key, value, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Updates the state of a Durable Object.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Types</span>
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:client_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:client_opts/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">client_opts()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L20" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> client_opts() :: [
+  worker_url: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  api_token: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  name: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>(),
+  finch_pool_size: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pos_integer</a>(),
+  finch_pool_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pos_integer</a>()
+]</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:connection_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:connection_opts/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">connection_opts()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L27" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> connection_opts() :: [
+  url: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  auto_reconnect: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+  backoff_initial: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  backoff_max: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  subscriber: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>() | nil
+]</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:error_reason/0">
+
+  <div class="detail-header">
+    <a href="#t:error_reason/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">error_reason()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L19" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> error_reason() ::
+  :network_error
+  | :invalid_response
+  | :server_error
+  | :not_found
+  | <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>()
+  | <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:http_body/0">
+
+  <div class="detail-header">
+    <a href="#t:http_body/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">http_body()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L17" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> http_body() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:http_headers/0">
+
+  <div class="detail-header">
+    <a href="#t:http_headers/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">http_headers()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L16" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> http_headers() :: [{<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}]</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:http_method/0">
+
+  <div class="detail-header">
+    <a href="#t:http_method/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">http_method()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L14" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> http_method() :: :get | :post | :put | :delete</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:http_response/0">
+
+  <div class="detail-header">
+    <a href="#t:http_response/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">http_response()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L18" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> http_response() :: %{
+  status: <a href="#t:http_status/0">http_status</a>(),
+  body: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>() | nil,
+  headers: <a href="#t:http_headers/0">http_headers</a>()
+}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:http_status/0">
+
+  <div class="detail-header">
+    <a href="#t:http_status/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">http_status()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L15" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> http_status() :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:method_name/0">
+
+  <div class="detail-header">
+    <a href="#t:method_name/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">method_name()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L13" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> method_name() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:object_id/0">
+
+  <div class="detail-header">
+    <a href="#t:object_id/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">object_id()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L12" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> object_id() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">t()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L11" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> t() :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">module</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="call_method/4">
+
+    <span id="call_method/3"></span>
+
+  <div class="detail-header">
+    <a href="#call_method/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">call_method(object_id, method, params, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L79" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> call_method(<a href="#t:object_id/0">object_id</a>(), <a href="#t:method_name/0">method_name</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Calls a method on a Durable Object.</p><h2 id="call_method/4-parameters" class="section-heading">
+  <a href="#call_method/4-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object_id</code> - ID of the Durable Object to call</li><li><code class="inline">method</code> - Method to call on the Durable Object</li><li><code class="inline">params</code> - Parameters to pass to the method</li><li><code class="inline">opts</code> - Optional parameters:<ul><li><code class="inline">:worker_url</code> - Override the default worker URL</li></ul></li></ul><h2 id="call_method/4-returns" class="section-heading">
+  <a href="#call_method/4-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, response}</code> - Successfully called method on Durable Object</li><li><code class="inline">{:error, reason}</code> - Failed to call method on Durable Object</li></ul>
+  </section>
+</section>
+<section class="detail" id="delete_state/3">
+
+    <span id="delete_state/2"></span>
+
+  <div class="detail-header">
+    <a href="#delete_state/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">delete_state(object_id, key, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L213" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> delete_state(<a href="#t:object_id/0">object_id</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Deletes a key from a Durable Object's state.</p><h2 id="delete_state/3-parameters" class="section-heading">
+  <a href="#delete_state/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object_id</code> - ID of the Durable Object to update</li><li><code class="inline">key</code> - Key to delete</li><li><code class="inline">opts</code> - Optional parameters:<ul><li><code class="inline">:worker_url</code> - Override the default worker URL</li></ul></li></ul><h2 id="delete_state/3-returns" class="section-heading">
+  <a href="#delete_state/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, response}</code> - Successfully deleted key</li><li><code class="inline">{:error, reason}</code> - Failed to delete key</li></ul>
+  </section>
+</section>
+<section class="detail" id="get_state/3">
+
+    <span id="get_state/1"></span>
+
+    <span id="get_state/2"></span>
+
+  <div class="detail-header">
+    <a href="#get_state/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_state(object_id, key \\ nil, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L145" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_state(<a href="#t:object_id/0">object_id</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Gets the state of a Durable Object.</p><h2 id="get_state/3-parameters" class="section-heading">
+  <a href="#get_state/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object_id</code> - ID of the Durable Object to get state from</li><li><code class="inline">key</code> - Optional specific key to get (if nil, gets all state)</li><li><code class="inline">opts</code> - Optional parameters:<ul><li><code class="inline">:worker_url</code> - Override the default worker URL</li></ul></li></ul><h2 id="get_state/3-returns" class="section-heading">
+  <a href="#get_state/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, state}</code> - Successfully retrieved state</li><li><code class="inline">{:error, reason}</code> - Failed to retrieve state</li></ul>
+  </section>
+</section>
+<section class="detail" id="initialize/3">
+
+    <span id="initialize/2"></span>
+
+  <div class="detail-header">
+    <a href="#initialize/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">initialize(object_id, data, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L49" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> initialize(<a href="#t:object_id/0">object_id</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Initializes a new Durable Object instance.</p><h2 id="initialize/3-parameters" class="section-heading">
+  <a href="#initialize/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object_id</code> - ID of the Durable Object to initialize</li><li><code class="inline">data</code> - Initial data to store in the Durable Object</li><li><code class="inline">opts</code> - Optional parameters:<ul><li><code class="inline">:worker_url</code> - Override the default worker URL</li></ul></li></ul><h2 id="initialize/3-returns" class="section-heading">
+  <a href="#initialize/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, response}</code> - Successfully initialized Durable Object</li><li><code class="inline">{:error, reason}</code> - Failed to initialize Durable Object</li></ul>
+  </section>
+</section>
+<section class="detail" id="open_websocket/2">
+
+    <span id="open_websocket/1"></span>
+
+  <div class="detail-header">
+    <a href="#open_websocket/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">open_websocket(object_id, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L113" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> open_websocket(
+  <a href="#t:object_id/0">object_id</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
+) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Opens a WebSocket connection to a Durable Object.</p><h2 id="open_websocket/2-parameters" class="section-heading">
+  <a href="#open_websocket/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object_id</code> - ID of the Durable Object to connect to</li><li><code class="inline">opts</code> - Optional parameters:<ul><li><code class="inline">:worker_url</code> - Override the default worker URL</li><li><code class="inline">:auto_reconnect</code> - Whether to automatically reconnect on disconnect (default: true)</li><li><code class="inline">:backoff_initial</code> - Initial backoff time in ms (default: 500)</li><li><code class="inline">:backoff_max</code> - Maximum backoff time in ms (default: 30000)</li></ul></li></ul><h2 id="open_websocket/2-returns" class="section-heading">
+  <a href="#open_websocket/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, pid}</code> - Successfully opened WebSocket connection</li><li><code class="inline">{:error, reason}</code> - Failed to open WebSocket connection</li></ul>
+  </section>
+</section>
+<section class="detail" id="update_state/4">
+
+    <span id="update_state/3"></span>
+
+  <div class="detail-header">
+    <a href="#update_state/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">update_state(object_id, key, value, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L181" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> update_state(<a href="#t:object_id/0">object_id</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Updates the state of a Durable Object.</p><h2 id="update_state/4-parameters" class="section-heading">
+  <a href="#update_state/4-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">object_id</code> - ID of the Durable Object to update</li><li><code class="inline">key</code> - Key to update</li><li><code class="inline">value</code> - Value to set</li><li><code class="inline">opts</code> - Optional parameters:<ul><li><code class="inline">:worker_url</code> - Override the default worker URL</li></ul></li></ul><h2 id="update_state/4-returns" class="section-heading">
+  <a href="#update_state/4-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, response}</code> - Successfully updated state</li><li><code class="inline">{:error, reason}</code> - Failed to update state</li></ul>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+          <span class="line">
+            <a href="https://hex.pm/packages/cloudflare_durable/0.2.0" class="footer-hex-package">Hex Package</a>
+
+            <a href="https://preview.hex.pm/preview/cloudflare_durable/0.2.0">Hex Preview</a>
+
+          </span>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="cloudflare_durable.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.37.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.37.3">
+    <meta name="project" content="cloudflare_durable v0.2.0">
+
+
+    <title>CloudflareDurable — cloudflare_durable v0.2.0</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
+
+    <script defer src="dist/sidebar_items-D8C37856.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-ALU6OERS.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+      <div>
+        <a href="readme.html" class="sidebar-projectName" translate="no">
+cloudflare_durable
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.2.0
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of cloudflare_durable</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>CloudflareDurable</h1>
+
+
+      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/README.md#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+<p><a href="https://hex.pm/packages/cloudflare_durable"><img src="https://img.shields.io/hexpm/v/cloudflare_durable.svg" alt="Hex.pm"/></a>
+<a href="https://hexdocs.pm/cloudflare_durable"><img src="https://img.shields.io/badge/hex-docs-blue.svg" alt="Docs"/></a>
+<a href="license.html"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a>
+<a href="https://github.com/jmanhype/cloudflare_durable_ex/actions"><img src="https://github.com/jmanhype/cloudflare_durable_ex/workflows/CI/badge.svg" alt="Build Status"/></a></p><p>An Elixir client for Cloudflare Durable Objects, providing a simple interface for distributed state management, WebSocket connections, and method invocation. This library enables Elixir applications to leverage Cloudflare's globally distributed persistent state without managing complex infrastructure.</p><h2 id="features" class="section-heading">
+  <a href="#features" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Features</span>
+</h2>
+<ul><li>Initialize Durable Objects with initial state</li><li>Call methods on remote Durable Objects</li><li>Establish WebSocket connections for real-time updates</li><li>Transparent error handling and reconnection</li><li>Event-based architecture using Telemetry</li><li>Configurable through standard Elixir configuration</li><li>Type specifications for better development experience</li></ul><h2 id="installation" class="section-heading">
+  <a href="#installation" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Installation</span>
+</h2>
+<p>Add <code class="inline">cloudflare_durable</code> to your mix.exs dependencies:</p><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="6174806400-1">do</span><span class="w">
+  </span><span class="p" data-group-id="6174806400-2">[</span><span class="w">
+    </span><span class="p" data-group-id="6174806400-3">{</span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.2.0&quot;</span><span class="p" data-group-id="6174806400-3">}</span><span class="w">
+  </span><span class="p" data-group-id="6174806400-2">]</span><span class="w">
+</span><span class="k" data-group-id="6174806400-1">end</span></code></pre><p>Then run:</p><pre><code class="makeup bash" translate="no"><span class="">mix deps.get
+</span></code></pre><h2 id="configuration" class="section-heading">
+  <a href="#configuration" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Configuration</span>
+</h2>
+<p>Add the following to your application configuration:</p><pre><code class="makeup elixir" translate="no"><span class="c1"># In config/config.exs</span><span class="w">
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w">
+  </span><span class="ss">worker_url</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="9250148565-1">(</span><span class="s">&quot;CLOUDFLARE_WORKER_URL&quot;</span><span class="p" data-group-id="9250148565-1">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s">&quot;https://your-worker.your-subdomain.workers.dev&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">account_id</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="9250148565-2">(</span><span class="s">&quot;CLOUDFLARE_ACCOUNT_ID&quot;</span><span class="p" data-group-id="9250148565-2">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">api_token</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="9250148565-3">(</span><span class="s">&quot;CLOUDFLARE_API_TOKEN&quot;</span><span class="p" data-group-id="9250148565-3">)</span><span class="p">,</span><span class="w">
+  </span><span class="c1"># Optional settings</span><span class="w">
+  </span><span class="ss">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30_000</span><span class="p">,</span><span class="w">                   </span><span class="c1"># Request timeout in milliseconds</span><span class="w">
+  </span><span class="ss">retry_count</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">                    </span><span class="c1"># Number of retries for failed requests</span><span class="w">
+  </span><span class="ss">retry_delay</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">                  </span><span class="c1"># Delay between retries in milliseconds</span><span class="w">
+  </span><span class="ss">websocket_reconnect_delay</span><span class="p">:</span><span class="w"> </span><span class="mi">1_000</span><span class="p">,</span><span class="w">  </span><span class="c1"># Delay before reconnecting WebSockets</span><span class="w">
+  </span><span class="ss">pool_size</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">                      </span><span class="c1"># HTTP connection pool size</span></code></pre><h3 id="environment-variables" class="section-heading">
+  <a href="#environment-variables" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Environment Variables</span>
+</h3>
+<p>For production use, we recommend setting the following environment variables:</p><ul><li><code class="inline">CLOUDFLARE_WORKER_URL</code>: URL of your deployed Cloudflare Worker</li><li><code class="inline">CLOUDFLARE_ACCOUNT_ID</code>: Your Cloudflare account ID</li><li><code class="inline">CLOUDFLARE_API_TOKEN</code>: API token with appropriate permissions</li></ul><h2 id="usage" class="section-heading">
+  <a href="#usage" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Usage</span>
+</h2>
+<h3 id="basic-examples" class="section-heading">
+  <a href="#basic-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Basic Examples</span>
+</h3>
+<h4>Initialize a Durable Object</h4><pre><code class="makeup elixir" translate="no"><span class="kn">alias</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="w">
+
+</span><span class="c1"># Initialize a new Durable Object with an initial state</span><span class="w">
+</span><span class="p" data-group-id="5524363325-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p" data-group-id="5524363325-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="5524363325-2">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5524363325-3">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="5524363325-3">}</span><span class="p" data-group-id="5524363325-2">)</span></code></pre><h4>Call Methods on a Durable Object</h4><pre><code class="makeup elixir" translate="no"><span class="c1"># Call a method on the Durable Object</span><span class="w">
+</span><span class="p" data-group-id="9873709735-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="9873709735-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="9873709735-2">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;increment&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9873709735-3">%{</span><span class="ss">increment</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="9873709735-3">}</span><span class="p" data-group-id="9873709735-2">)</span><span class="w">
+</span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p" data-group-id="9873709735-4">(</span><span class="n">result</span><span class="p" data-group-id="9873709735-4">)</span><span class="w"> </span><span class="c1"># =&gt; %{&quot;value&quot; =&gt; 1}</span><span class="w">
+
+</span><span class="c1"># Call another method</span><span class="w">
+</span><span class="p" data-group-id="9873709735-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="9873709735-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="9873709735-6">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;get_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9873709735-7">%{</span><span class="p" data-group-id="9873709735-7">}</span><span class="p" data-group-id="9873709735-6">)</span><span class="w">
+</span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p" data-group-id="9873709735-8">(</span><span class="n">result</span><span class="p" data-group-id="9873709735-8">)</span><span class="w"> </span><span class="c1"># =&gt; %{&quot;value&quot; =&gt; 1}</span></code></pre><h4>Open a WebSocket Connection</h4><pre><code class="makeup elixir" translate="no"><span class="c1"># Open a WebSocket for real-time updates</span><span class="w">
+</span><span class="p" data-group-id="9260105457-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="9260105457-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="9260105457-2">(</span><span class="s">&quot;counter&quot;</span><span class="p" data-group-id="9260105457-2">)</span><span class="w">
+
+</span><span class="c1"># Register a message handler</span><span class="w">
+</span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">register_handler</span><span class="p" data-group-id="9260105457-3">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="9260105457-4">fn</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+  </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="9260105457-5">(</span><span class="s">&quot;Received message: </span><span class="si" data-group-id="9260105457-6">#{</span><span class="n">inspect</span><span class="p" data-group-id="9260105457-7">(</span><span class="n">message</span><span class="p" data-group-id="9260105457-7">)</span><span class="si" data-group-id="9260105457-6">}</span><span class="s">&quot;</span><span class="p" data-group-id="9260105457-5">)</span><span class="w">
+</span><span class="k" data-group-id="9260105457-4">end</span><span class="p" data-group-id="9260105457-3">)</span><span class="w">
+
+</span><span class="c1"># Send a message through WebSocket</span><span class="w">
+</span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">send_message</span><span class="p" data-group-id="9260105457-8">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="9260105457-9">%{</span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p" data-group-id="9260105457-9">}</span><span class="p" data-group-id="9260105457-8">)</span></code></pre><h3 id="advanced-examples" class="section-heading">
+  <a href="#advanced-examples" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Advanced Examples</span>
+</h3>
+<h4>Distributed Counter</h4><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.DistributedCounter</span><span class="w"> </span><span class="k" data-group-id="2142186858-1">do</span><span class="w">
+  </span><span class="kn">alias</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="w">
+  
+  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
+  Creates a new counter with a starting value
+  &quot;&quot;&quot;</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">create</span><span class="p" data-group-id="2142186858-2">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">start_value</span><span class="w"> </span><span class="o">\\</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="2142186858-2">)</span><span class="w"> </span><span class="k" data-group-id="2142186858-3">do</span><span class="w">
+    </span><span class="nc">Client</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="2142186858-4">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="2142186858-5">#{</span><span class="n">id</span><span class="si" data-group-id="2142186858-5">}</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2142186858-6">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="n">start_value</span><span class="p" data-group-id="2142186858-6">}</span><span class="p" data-group-id="2142186858-4">)</span><span class="w">
+  </span><span class="k" data-group-id="2142186858-3">end</span><span class="w">
+  
+  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
+  Increments the counter by the given amount
+  &quot;&quot;&quot;</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">increment</span><span class="p" data-group-id="2142186858-7">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">\\</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="2142186858-7">)</span><span class="w"> </span><span class="k" data-group-id="2142186858-8">do</span><span class="w">
+    </span><span class="k">case</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="2142186858-9">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="2142186858-10">#{</span><span class="n">id</span><span class="si" data-group-id="2142186858-10">}</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;increment&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2142186858-11">%{</span><span class="ss">increment</span><span class="p">:</span><span class="w"> </span><span class="n">amount</span><span class="p" data-group-id="2142186858-11">}</span><span class="p" data-group-id="2142186858-9">)</span><span class="w"> </span><span class="k" data-group-id="2142186858-12">do</span><span class="w">
+      </span><span class="p" data-group-id="2142186858-13">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="2142186858-13">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p" data-group-id="2142186858-14">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="2142186858-15">[</span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="2142186858-15">]</span><span class="p" data-group-id="2142186858-14">}</span><span class="w">
+      </span><span class="p" data-group-id="2142186858-16">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="2142186858-16">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">error</span><span class="w">
+    </span><span class="k" data-group-id="2142186858-12">end</span><span class="w">
+  </span><span class="k" data-group-id="2142186858-8">end</span><span class="w">
+  
+  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
+  Gets the current value of the counter
+  &quot;&quot;&quot;</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">get_value</span><span class="p" data-group-id="2142186858-17">(</span><span class="n">id</span><span class="p" data-group-id="2142186858-17">)</span><span class="w"> </span><span class="k" data-group-id="2142186858-18">do</span><span class="w">
+    </span><span class="k">case</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="2142186858-19">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="2142186858-20">#{</span><span class="n">id</span><span class="si" data-group-id="2142186858-20">}</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;get_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2142186858-21">%{</span><span class="p" data-group-id="2142186858-21">}</span><span class="p" data-group-id="2142186858-19">)</span><span class="w"> </span><span class="k" data-group-id="2142186858-22">do</span><span class="w">
+      </span><span class="p" data-group-id="2142186858-23">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="2142186858-23">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p" data-group-id="2142186858-24">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="2142186858-25">[</span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="2142186858-25">]</span><span class="p" data-group-id="2142186858-24">}</span><span class="w">
+      </span><span class="p" data-group-id="2142186858-26">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="2142186858-26">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">error</span><span class="w">
+    </span><span class="k" data-group-id="2142186858-22">end</span><span class="w">
+  </span><span class="k" data-group-id="2142186858-18">end</span><span class="w">
+  
+  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
+  Subscribes to counter updates
+  &quot;&quot;&quot;</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">subscribe</span><span class="p" data-group-id="2142186858-27">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p" data-group-id="2142186858-27">)</span><span class="w"> </span><span class="k" data-group-id="2142186858-28">do</span><span class="w">
+    </span><span class="k">with</span><span class="w"> </span><span class="p" data-group-id="2142186858-29">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="2142186858-29">}</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="2142186858-30">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="2142186858-31">#{</span><span class="n">id</span><span class="si" data-group-id="2142186858-31">}</span><span class="s">&quot;</span><span class="p" data-group-id="2142186858-30">)</span><span class="w"> </span><span class="k" data-group-id="2142186858-32">do</span><span class="w">
+      </span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">register_handler</span><span class="p" data-group-id="2142186858-33">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="2142186858-34">fn</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+        </span><span class="n">send</span><span class="p" data-group-id="2142186858-35">(</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2142186858-36">{</span><span class="ss">:counter_update</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p" data-group-id="2142186858-37">[</span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="2142186858-37">]</span><span class="p" data-group-id="2142186858-36">}</span><span class="p" data-group-id="2142186858-35">)</span><span class="w">
+      </span><span class="k" data-group-id="2142186858-34">end</span><span class="p" data-group-id="2142186858-33">)</span><span class="w">
+      </span><span class="p" data-group-id="2142186858-38">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="2142186858-38">}</span><span class="w">
+    </span><span class="k" data-group-id="2142186858-32">end</span><span class="w">
+  </span><span class="k" data-group-id="2142186858-28">end</span><span class="w">
+</span><span class="k" data-group-id="2142186858-1">end</span></code></pre><h4>Collaborative Document Editing</h4><pre><code class="makeup elixir" translate="no"><span class="c1"># Initialize a collaborative document</span><span class="w">
+</span><span class="p" data-group-id="7633742835-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="7633742835-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="7633742835-2">(</span><span class="s">&quot;document-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7633742835-3">%{</span><span class="w">
+  </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Initial document content&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">version</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="ss">editors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7633742835-4">[</span><span class="p" data-group-id="7633742835-4">]</span><span class="w">
+</span><span class="p" data-group-id="7633742835-3">}</span><span class="p" data-group-id="7633742835-2">)</span><span class="w">
+
+</span><span class="c1"># Join as an editor</span><span class="w">
+</span><span class="p" data-group-id="7633742835-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="7633742835-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="7633742835-6">(</span><span class="s">&quot;document-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;join&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7633742835-7">%{</span><span class="w">
+  </span><span class="ss">editor_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user-456&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;John Doe&quot;</span><span class="w">
+</span><span class="p" data-group-id="7633742835-7">}</span><span class="p" data-group-id="7633742835-6">)</span><span class="w">
+
+</span><span class="c1"># Make an edit</span><span class="w">
+</span><span class="p" data-group-id="7633742835-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="7633742835-8">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="7633742835-9">(</span><span class="s">&quot;document-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7633742835-10">%{</span><span class="w">
+  </span><span class="ss">editor_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user-456&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated document content&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">version</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="p" data-group-id="7633742835-10">}</span><span class="p" data-group-id="7633742835-9">)</span><span class="w">
+
+</span><span class="c1"># Open WebSocket for real-time updates</span><span class="w">
+</span><span class="p" data-group-id="7633742835-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="7633742835-11">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="7633742835-12">(</span><span class="s">&quot;document-123&quot;</span><span class="p" data-group-id="7633742835-12">)</span><span class="w">
+</span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">register_handler</span><span class="p" data-group-id="7633742835-13">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="7633742835-14">fn</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+  </span><span class="k">case</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="k" data-group-id="7633742835-15">do</span><span class="w">
+    </span><span class="p" data-group-id="7633742835-16">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;edit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;editor&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">editor</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;version&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">version</span><span class="p" data-group-id="7633742835-16">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="7633742835-17">(</span><span class="s">&quot;</span><span class="si" data-group-id="7633742835-18">#{</span><span class="n">editor</span><span class="si" data-group-id="7633742835-18">}</span><span class="s"> updated the document to version </span><span class="si" data-group-id="7633742835-19">#{</span><span class="n">version</span><span class="si" data-group-id="7633742835-19">}</span><span class="s">&quot;</span><span class="p" data-group-id="7633742835-17">)</span><span class="w">
+      
+    </span><span class="p" data-group-id="7633742835-20">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;join&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;editor&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">editor</span><span class="p" data-group-id="7633742835-20">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="7633742835-21">(</span><span class="s">&quot;</span><span class="si" data-group-id="7633742835-22">#{</span><span class="n">editor</span><span class="si" data-group-id="7633742835-22">}</span><span class="s"> joined the document&quot;</span><span class="p" data-group-id="7633742835-21">)</span><span class="w">
+      
+    </span><span class="p" data-group-id="7633742835-23">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;leave&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;editor&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">editor</span><span class="p" data-group-id="7633742835-23">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+      </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="7633742835-24">(</span><span class="s">&quot;</span><span class="si" data-group-id="7633742835-25">#{</span><span class="n">editor</span><span class="si" data-group-id="7633742835-25">}</span><span class="s"> left the document&quot;</span><span class="p" data-group-id="7633742835-24">)</span><span class="w">
+  </span><span class="k" data-group-id="7633742835-15">end</span><span class="w">
+</span><span class="k" data-group-id="7633742835-14">end</span><span class="p" data-group-id="7633742835-13">)</span></code></pre><h2 id="deploying-the-durable-objects-worker" class="section-heading">
+  <a href="#deploying-the-durable-objects-worker" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Deploying the Durable Objects Worker</span>
+</h2>
+<p>This library relies on a Cloudflare Worker script that handles the Durable Objects. A reference implementation is included in the <code class="inline">priv/cloudflare</code> directory.</p><ol><li><p>Install Wrangler (Cloudflare's CLI tool):</p><pre><code class="makeup bash" translate="no"><span class="">npm install -g wrangler
+</span></code></pre></li><li><p>Authenticate with Cloudflare:</p><pre><code class="makeup bash" translate="no"><span class="">wrangler login
+</span></code></pre></li><li><p>Deploy the Worker and Durable Object:</p><pre><code class="makeup bash" translate="no"><span class="">cd priv/cloudflare
+</span><span class="">wrangler publish
+</span></code></pre></li><li><p>Note the URL of your deployed worker and update your configuration.</p></li></ol><h3 id="reference-worker-implementation" class="section-heading">
+  <a href="#reference-worker-implementation" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Reference Worker Implementation</span>
+</h3>
+<p>The reference implementation in the <code class="inline">priv/cloudflare</code> directory provides:</p><ul><li>REST API for Durable Object method invocation</li><li>WebSocket connections to Durable Objects</li><li>User-defined method handlers</li><li>Persistence of Durable Object state</li></ul><h2 id="telemetry-metrics" class="section-heading">
+  <a href="#telemetry-metrics" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Telemetry Metrics</span>
+</h2>
+<p>This library emits telemetry events that you can subscribe to:</p><ul><li><code class="inline">[:cloudflare_durable, :request, :start]</code> - When a request to a Durable Object starts</li><li><code class="inline">[:cloudflare_durable, :request, :stop]</code> - When a request to a Durable Object completes</li><li><code class="inline">[:cloudflare_durable, :websocket, :connected]</code> - When a WebSocket connection is established</li><li><code class="inline">[:cloudflare_durable, :websocket, :disconnected]</code> - When a WebSocket connection is closed</li><li><code class="inline">[:cloudflare_durable, :error]</code> - When an error occurs</li></ul><h3 id="example-telemetry-setup" class="section-heading">
+  <a href="#example-telemetry-setup" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Example Telemetry Setup</span>
+</h3>
+<pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Telemetry</span><span class="w"> </span><span class="k" data-group-id="8213419192-1">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">setup</span><span class="w"> </span><span class="k" data-group-id="8213419192-2">do</span><span class="w">
+    </span><span class="nc">:telemetry</span><span class="o">.</span><span class="n">attach</span><span class="p" data-group-id="8213419192-3">(</span><span class="w">
+      </span><span class="s">&quot;cloudflare-durable-request-handler&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="p" data-group-id="8213419192-4">[</span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w"> </span><span class="ss">:request</span><span class="p">,</span><span class="w"> </span><span class="ss">:stop</span><span class="p" data-group-id="8213419192-4">]</span><span class="p">,</span><span class="w">
+      </span><span class="o">&amp;</span><span class="n">handle_request_event</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="no">nil</span><span class="w">
+    </span><span class="p" data-group-id="8213419192-3">)</span><span class="w">
+    
+    </span><span class="nc">:telemetry</span><span class="o">.</span><span class="n">attach</span><span class="p" data-group-id="8213419192-5">(</span><span class="w">
+      </span><span class="s">&quot;cloudflare-durable-error-handler&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="p" data-group-id="8213419192-6">[</span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w"> </span><span class="ss">:error</span><span class="p" data-group-id="8213419192-6">]</span><span class="p">,</span><span class="w">
+      </span><span class="o">&amp;</span><span class="n">handle_error_event</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="no">nil</span><span class="w">
+    </span><span class="p" data-group-id="8213419192-5">)</span><span class="w">
+  </span><span class="k" data-group-id="8213419192-2">end</span><span class="w">
+  
+  </span><span class="kd">defp</span><span class="w"> </span><span class="nf">handle_request_event</span><span class="p" data-group-id="8213419192-7">(</span><span class="c">_event</span><span class="p">,</span><span class="w"> </span><span class="n">measurements</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="c">_config</span><span class="p" data-group-id="8213419192-7">)</span><span class="w"> </span><span class="k" data-group-id="8213419192-8">do</span><span class="w">
+    </span><span class="c1"># Log or record metrics about requests</span><span class="w">
+    </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="8213419192-9">(</span><span class="s">&quot;Request to </span><span class="si" data-group-id="8213419192-10">#{</span><span class="n">metadata</span><span class="o">.</span><span class="n">object_id</span><span class="si" data-group-id="8213419192-10">}</span><span class="s">#</span><span class="si" data-group-id="8213419192-11">#{</span><span class="n">metadata</span><span class="o">.</span><span class="n">method</span><span class="si" data-group-id="8213419192-11">}</span><span class="s"> completed in </span><span class="si" data-group-id="8213419192-12">#{</span><span class="n">measurements</span><span class="o">.</span><span class="n">duration</span><span class="si" data-group-id="8213419192-12">}</span><span class="s"> ms&quot;</span><span class="p" data-group-id="8213419192-9">)</span><span class="w">
+  </span><span class="k" data-group-id="8213419192-8">end</span><span class="w">
+  
+  </span><span class="kd">defp</span><span class="w"> </span><span class="nf">handle_error_event</span><span class="p" data-group-id="8213419192-13">(</span><span class="c">_event</span><span class="p">,</span><span class="w"> </span><span class="c">_measurements</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="c">_config</span><span class="p" data-group-id="8213419192-13">)</span><span class="w"> </span><span class="k" data-group-id="8213419192-14">do</span><span class="w">
+    </span><span class="c1"># Log or record error metrics</span><span class="w">
+    </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="8213419192-15">(</span><span class="s">&quot;Error in CloudflareDurable: </span><span class="si" data-group-id="8213419192-16">#{</span><span class="n">inspect</span><span class="p" data-group-id="8213419192-17">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">error</span><span class="p" data-group-id="8213419192-17">)</span><span class="si" data-group-id="8213419192-16">}</span><span class="s">&quot;</span><span class="p" data-group-id="8213419192-15">)</span><span class="w">
+  </span><span class="k" data-group-id="8213419192-14">end</span><span class="w">
+</span><span class="k" data-group-id="8213419192-1">end</span></code></pre><h2 id="contributing" class="section-heading">
+  <a href="#contributing" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Contributing</span>
+</h2>
+<p>Contributions are welcome! Please feel free to submit a Pull Request.</p><ol><li>Fork the repository</li><li>Create your feature branch (<code class="inline">git checkout -b feature/amazing-feature</code>)</li><li>Commit your changes (<code class="inline">git commit -m 'Add some amazing feature'</code>)</li><li>Push to the branch (<code class="inline">git push origin feature/amazing-feature</code>)</li><li>Open a Pull Request</li></ol><h2 id="license" class="section-heading">
+  <a href="#license" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">License</span>
+</h2>
+<p>This package is licensed under the MIT License - see the <a href="license.html">LICENSE</a> file for details. </p>
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="api-reference.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+API Reference
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="changelog.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+CHANGELOG
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>
+
+          <span class="line">
+            <a href="https://hex.pm/packages/cloudflare_durable/0.2.0" class="footer-hex-package">Hex Package</a>
+
+            <a href="https://preview.hex.pm/preview/cloudflare_durable/0.2.0">Hex Preview</a>
+
+              (<a href="https://preview.hex.pm/preview/cloudflare_durable/0.2.0/show/README.md">current file</a>)
+
+          </span>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="cloudflare_durable.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.37.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>

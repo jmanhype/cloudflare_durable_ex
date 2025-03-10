@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.37.3">
+    <meta name="project" content="cloudflare_durable v0.2.0">
+
+
+    <title>CloudflareDurable.Application — cloudflare_durable v0.2.0</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
+
+    <script defer src="dist/sidebar_items-D8C37856.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-ALU6OERS.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+      <div>
+        <a href="readme.html" class="sidebar-projectName" translate="no">
+cloudflare_durable
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.2.0
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras=""></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-module" id="main" data-type="modules">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of cloudflare_durable</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search" tabindex="-1">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>
+      <span translate="no">CloudflareDurable.Application</span> 
+      <small class="app-vsn" translate="no">(cloudflare_durable v0.2.0)</small>
+
+    </h1>
+
+      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+    <section id="moduledoc">
+<p>Application interface for Cloudflare Durable Objects.</p><p>This module provides an interface for managing state in a Durable Object.</p>
+    </section>
+
+</div>
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Summary</span>
+    </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#child_spec/1" data-no-tooltip="" translate="no">child_spec(init_arg)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns a specification to start this module under a supervisor.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#delete/2" data-no-tooltip="" translate="no">delete(pid, key)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Deletes a value from the Durable Object state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get/2" data-no-tooltip="" translate="no">get(pid, key)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a value from the Durable Object state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_all/2" data-no-tooltip="" translate="no">get_all(pid, keys)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets multiple values from the Durable Object state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put/3" data-no-tooltip="" translate="no">put(pid, key, value)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Puts a value in the Durable Object state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#put_all/2" data-no-tooltip="" translate="no">put_all(pid, map)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Puts multiple values in the Durable Object state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#start_link/1" data-no-tooltip="" translate="no">start_link(opts)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Starts a new Application process.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#stop/1" data-no-tooltip="" translate="no">stop(pid)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Stops the Application process.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update/3" data-no-tooltip="" translate="no">update(pid, key, fun)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Updates a value in the Durable Object state using a function.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Functions</span>
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="child_spec/1">
+
+  <div class="detail-header">
+    <a href="#child_spec/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">child_spec(init_arg)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L8" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Returns a specification to start this module under a supervisor.</p><p>See <a href="https://hexdocs.pm/elixir/Supervisor.html"><code class="inline">Supervisor</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="delete/2">
+
+  <div class="detail-header">
+    <a href="#delete/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">delete(pid, key)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L123" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> delete(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Deletes a value from the Durable Object state.</p><h2 id="delete/2-parameters" class="section-heading">
+  <a href="#delete/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">pid</code> - PID of the Application process</li><li><code class="inline">key</code> - Key to delete</li></ul><h2 id="delete/2-returns" class="section-heading">
+  <a href="#delete/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">:ok</code> - Successfully deleted the value</li><li><code class="inline">{:error, reason}</code> - Failed to delete the value</li></ul>
+  </section>
+</section>
+<section class="detail" id="get/2">
+
+  <div class="detail-header">
+    <a href="#get/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get(pid, key)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L41" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Gets a value from the Durable Object state.</p><h2 id="get/2-parameters" class="section-heading">
+  <a href="#get/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">pid</code> - PID of the Application process</li><li><code class="inline">key</code> - Key to get</li></ul><h2 id="get/2-returns" class="section-heading">
+  <a href="#get/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, value}</code> - Successfully got the value</li><li><code class="inline">{:error, reason}</code> - Failed to get the value</li></ul>
+  </section>
+</section>
+<section class="detail" id="get_all/2">
+
+  <div class="detail-header">
+    <a href="#get_all/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_all(pid, keys)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L57" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_all(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>(), [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Gets multiple values from the Durable Object state.</p><h2 id="get_all/2-parameters" class="section-heading">
+  <a href="#get_all/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">pid</code> - PID of the Application process</li><li><code class="inline">keys</code> - List of keys to get</li></ul><h2 id="get_all/2-returns" class="section-heading">
+  <a href="#get_all/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, map}</code> - Successfully got the values</li><li><code class="inline">{:error, reason}</code> - Failed to get the values</li></ul>
+  </section>
+</section>
+<section class="detail" id="put/3">
+
+  <div class="detail-header">
+    <a href="#put/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">put(pid, key, value)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L74" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> put(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Puts a value in the Durable Object state.</p><h2 id="put/3-parameters" class="section-heading">
+  <a href="#put/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">pid</code> - PID of the Application process</li><li><code class="inline">key</code> - Key to put</li><li><code class="inline">value</code> - Value to put</li></ul><h2 id="put/3-returns" class="section-heading">
+  <a href="#put/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">:ok</code> - Successfully put the value</li><li><code class="inline">{:error, reason}</code> - Failed to put the value</li></ul>
+  </section>
+</section>
+<section class="detail" id="put_all/2">
+
+  <div class="detail-header">
+    <a href="#put_all/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">put_all(pid, map)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L90" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> put_all(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Puts multiple values in the Durable Object state.</p><h2 id="put_all/2-parameters" class="section-heading">
+  <a href="#put_all/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">pid</code> - PID of the Application process</li><li><code class="inline">map</code> - Map of key-value pairs to put</li></ul><h2 id="put_all/2-returns" class="section-heading">
+  <a href="#put_all/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">:ok</code> - Successfully put the values</li><li><code class="inline">{:error, reason}</code> - Failed to put the values</li></ul>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">start_link(opts)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L25" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> start_link(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="https://hexdocs.pm/elixir/GenServer.html#t:on_start/0">GenServer.on_start</a>()</pre>
+
+      </div>
+
+<p>Starts a new Application process.</p><h2 id="start_link/1-parameters" class="section-heading">
+  <a href="#start_link/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">opts</code> - Options for the Application:<ul><li><code class="inline">:url</code> - URL of the Cloudflare Worker (required)</li><li><code class="inline">:id_type</code> - Type of ID to use (:string or :name, default: :string)</li><li><code class="inline">:object_name</code> - Object name to use (for :name ID type)</li><li><code class="inline">:retry_options</code> - Retry options for HTTP requests</li></ul></li></ul><h2 id="start_link/1-returns" class="section-heading">
+  <a href="#start_link/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, pid}</code> - Successfully started the Application</li><li><code class="inline">{:error, reason}</code> - Failed to start the Application</li></ul>
+  </section>
+</section>
+<section class="detail" id="stop/1">
+
+  <div class="detail-header">
+    <a href="#stop/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">stop(pid)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L137" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> stop(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>()) :: :ok</pre>
+
+      </div>
+
+<p>Stops the Application process.</p><h2 id="stop/1-parameters" class="section-heading">
+  <a href="#stop/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">pid</code> - PID of the Application process</li></ul><h2 id="stop/1-returns" class="section-heading">
+  <a href="#stop/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">:ok</code> - Successfully stopped the process</li></ul>
+  </section>
+</section>
+<section class="detail" id="update/3">
+
+  <div class="detail-header">
+    <a href="#update/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">update(pid, key, fun)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/application.ex#L107" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> update(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), (<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>() -&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>())) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Updates a value in the Durable Object state using a function.</p><h2 id="update/3-parameters" class="section-heading">
+  <a href="#update/3-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">pid</code> - PID of the Application process</li><li><code class="inline">key</code> - Key to update</li><li><code class="inline">fun</code> - Function to apply to the current value</li></ul><h2 id="update/3-returns" class="section-heading">
+  <a href="#update/3-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, new_value}</code> - Successfully updated the value</li><li><code class="inline">{:error, reason}</code> - Failed to update the value</li></ul>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+    <footer class="footer">
+      <p>
+
+          <span class="line">
+            <a href="https://hex.pm/packages/cloudflare_durable/0.2.0" class="footer-hex-package">Hex Package</a>
+
+            <a href="https://preview.hex.pm/preview/cloudflare_durable/0.2.0">Hex Preview</a>
+
+          </span>
+
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
+
+            <a href="cloudflare_durable.epub" title="ePub version">
+              Download ePub version
+            </a>
+
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.37.3) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
