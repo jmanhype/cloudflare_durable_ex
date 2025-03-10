@@ -5,6 +5,7 @@ defmodule CloudflareDurable.WebSocketTest do
   
   use ExUnit.Case, async: true
   import Mock
+  import ExUnit.CaptureLog
   
   alias CloudflareDurable.WebSocket
   alias CloudflareDurable.WebSocketTestHelper

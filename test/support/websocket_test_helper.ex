@@ -6,8 +6,6 @@ defmodule CloudflareDurable.WebSocketTestHelper do
   simulating WebSocket events in tests.
   """
   
-  alias CloudflareDurable.WebSocket
-  
   @doc """
   Creates a mock WebSocket connection for testing.
   

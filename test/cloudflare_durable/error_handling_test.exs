@@ -5,6 +5,7 @@ defmodule CloudflareDurable.ErrorHandlingTest do
 
   use ExUnit.Case, async: true
   import Mock
+  import ExUnit.CaptureLog
   
   alias CloudflareDurable.Client
   
