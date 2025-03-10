@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare-durable-benchmark-worker",
+  "version": "1.0.0",
+  "description": "Benchmark worker for CloudflareDurable library",
+  "main": "benchmark_worker.js",
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "wrangler": "^3.32.0"
+  }
+} 

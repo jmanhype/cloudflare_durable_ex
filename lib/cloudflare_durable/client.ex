@@ -8,6 +8,30 @@ defmodule CloudflareDurable.Client do
   require Logger
   alias CloudflareDurable.WebSocket
 
+  @type t :: module()
+  @type object_id :: String.t()
+  @type method_name :: String.t()
+  @type http_method :: :get | :post | :put | :delete
+  @type http_status :: non_neg_integer()
+  @type http_headers :: [{String.t(), String.t()}]
+  @type http_body :: String.t() | nil
+  @type http_response :: %{status: http_status, body: map() | nil, headers: http_headers}
+  @type error_reason :: :network_error | :invalid_response | :server_error | :not_found | atom() | String.t()
+  @type client_opts :: [
+    worker_url: String.t(),
+    api_token: String.t(),
+    name: atom(),
+    finch_pool_size: pos_integer(),
+    finch_pool_count: pos_integer()
+  ]
+  @type connection_opts :: [
+    url: String.t(),
+    auto_reconnect: boolean(),
+    backoff_initial: non_neg_integer(),
+    backoff_max: non_neg_integer(),
+    subscriber: pid() | nil
+  ]
+
   @doc """
   Initializes a new Durable Object instance.
   
@@ -21,7 +45,7 @@ defmodule CloudflareDurable.Client do
     * `{:ok, response}` - Successfully initialized Durable Object
     * `{:error, reason}` - Failed to initialize Durable Object
   """
-  @spec initialize(String.t(), map(), keyword()) :: {:ok, map()} | {:error, term()}
+  @spec initialize(object_id(), map(), keyword()) :: {:ok, map()} | {:error, error_reason()}
   def initialize(object_id, data, opts \\ []) do
     worker_url = Keyword.get(opts, :worker_url, default_worker_url())
     
@@ -51,7 +75,7 @@ defmodule CloudflareDurable.Client do
     * `{:ok, response}` - Successfully called method on Durable Object
     * `{:error, reason}` - Failed to call method on Durable Object
   """
-  @spec call_method(String.t(), String.t(), map(), keyword()) :: {:ok, map()} | {:error, term()}
+  @spec call_method(object_id(), method_name(), map(), keyword()) :: {:ok, map()} | {:error, error_reason()}
   def call_method(object_id, method, params, opts \\ []) do
     worker_url = Keyword.get(opts, :worker_url, default_worker_url())
     
@@ -85,7 +109,7 @@ defmodule CloudflareDurable.Client do
     * `{:ok, pid}` - Successfully opened WebSocket connection
     * `{:error, reason}` - Failed to open WebSocket connection
   """
-  @spec open_websocket(String.t(), keyword()) :: {:ok, pid()} | {:error, term()}
+  @spec open_websocket(object_id(), keyword()) :: {:ok, pid()} | {:error, error_reason()}
   def open_websocket(object_id, opts \\ []) do
     worker_url = Keyword.get(opts, :worker_url, default_worker_url())
     
@@ -117,7 +141,7 @@ defmodule CloudflareDurable.Client do
     * `{:ok, state}` - Successfully retrieved state
     * `{:error, reason}` - Failed to retrieve state
   """
-  @spec get_state(String.t(), String.t() | nil, keyword()) :: {:ok, map()} | {:error, term()}
+  @spec get_state(object_id(), String.t() | nil, keyword()) :: {:ok, map()} | {:error, error_reason()}
   def get_state(object_id, key \\ nil, opts \\ []) do
     worker_url = Keyword.get(opts, :worker_url, default_worker_url())
     
@@ -153,7 +177,7 @@ defmodule CloudflareDurable.Client do
     * `{:ok, response}` - Successfully updated state
     * `{:error, reason}` - Failed to update state
   """
-  @spec update_state(String.t(), String.t(), any(), keyword()) :: {:ok, map()} | {:error, term()}
+  @spec update_state(object_id(), String.t(), any(), keyword()) :: {:ok, map()} | {:error, error_reason()}
   def update_state(object_id, key, value, opts \\ []) do
     worker_url = Keyword.get(opts, :worker_url, default_worker_url())
     
@@ -185,7 +209,7 @@ defmodule CloudflareDurable.Client do
     * `{:ok, response}` - Successfully deleted key
     * `{:error, reason}` - Failed to delete key
   """
-  @spec delete_state(String.t(), String.t(), keyword()) :: {:ok, map()} | {:error, term()}
+  @spec delete_state(object_id(), String.t(), keyword()) :: {:ok, map()} | {:error, error_reason()}
   def delete_state(object_id, key, opts \\ []) do
     worker_url = Keyword.get(opts, :worker_url, default_worker_url())
     

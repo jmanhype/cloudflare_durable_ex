@@ -32,7 +32,7 @@ defmodule CloudflareDurable.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {CloudflareDurable.Application, []}
+      mod: {CloudflareDurable.App, []}
     ]
   end
 
@@ -51,7 +51,10 @@ defmodule CloudflareDurable.MixProject do
       {:excoveralls, "~> 0.16", only: :test},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
-      {:mock, "~> 0.3.7", only: :test}
+      {:mock, "~> 0.3.7", only: :test},
+      # Benchmarking
+      {:benchee, "~> 1.1", only: [:dev, :test]},
+      {:benchee_html, "~> 1.0", only: [:dev, :test]}
     ]
   end
 

@@ -1,0 +1,17 @@
+name = "cloudflare-durable-benchmark"
+main = "benchmark_worker.js"
+compatibility_date = "2023-06-01"
+
+# Configure for local development
+[dev]
+port = 8788
+
+# Define the Durable Object
+[[durable_objects.bindings]]
+name = "BENCHMARK"
+class_name = "BenchmarkDurableObject"
+
+# Migrations configuration
+[[migrations]]
+tag = "v1"
+new_classes = ["BenchmarkDurableObject"] 
