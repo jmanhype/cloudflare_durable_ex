@@ -1,0 +1,12 @@
+name = "cloudflare-durable-worker"
+main = "durable-objects-worker.js"
+compatibility_date = "2023-09-01"
+
+[durable_objects]
+bindings = [
+  { name = "DURABLE_OBJECT", class_name = "DurableObject" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["DurableObject"] 
