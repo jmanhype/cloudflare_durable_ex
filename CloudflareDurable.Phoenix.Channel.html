@@ -8,7 +8,7 @@
     <meta name="project" content="cloudflare_durable v0.2.0">
 
 
-    <title>CloudflareDurable.Benchmark.Http — cloudflare_durable v0.2.0</title>
+    <title>CloudflareDurable.Phoenix.Channel — cloudflare_durable v0.2.0</title>
 
     <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
 
@@ -75,12 +75,12 @@ cloudflare_durable
 <div id="top-content">
   <div class="heading-with-actions top-heading">
     <h1>
-      <span translate="no">CloudflareDurable.Benchmark.Http</span> 
+      <span translate="no">CloudflareDurable.Phoenix.Channel</span> 
       <small class="app-vsn" translate="no">(cloudflare_durable v0.2.0)</small>
 
     </h1>
 
-      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/benchmark/http.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/channel.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -89,8 +89,9 @@ cloudflare_durable
 
 
     <section id="moduledoc">
-<p>Benchmarks for HTTP requests to Cloudflare Durable Objects.</p><p>This module provides benchmarks for measuring the performance of HTTP requests
-to Cloudflare Durable Objects, including initialization, method calls, and state operations.</p>
+<p>Phoenix Channel for real-time communication with Durable Objects.</p><p>This module provides the Socket and Channel implementation for
+communicating with Cloudflare Durable Objects in real-time.
+It handles client connections, message routing, and presence tracking.</p>
     </section>
 
 </div>
@@ -109,11 +110,47 @@ to Cloudflare Durable Objects, including initialization, method calls, and state
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#run/3" data-no-tooltip="" translate="no">run(output_path, save_results, compare_file)</a>
+        <a href="#child_spec/1" data-no-tooltip="" translate="no">child_spec(init_arg)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Runs the HTTP benchmark suite.</p></div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#handle_in/3" data-no-tooltip="" translate="no">handle_in(binary, payload, socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Handles explicit refresh requests from the client.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#handle_info/2" data-no-tooltip="" translate="no">handle_info(arg, socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Handles Durable Object update broadcasts.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#join/3" data-no-tooltip="" translate="no">join(arg, params, socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Handles joining the Durable Object channel.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#start_link/1" data-no-tooltip="" translate="no">start_link(triplet)</a>
+
+      </div>
 
     </div>
 
@@ -130,17 +167,17 @@ to Cloudflare Durable Objects, including initialization, method calls, and state
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="run/3">
+<section class="detail" id="child_spec/1">
 
   <div class="detail-header">
-    <a href="#run/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#child_spec/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">run(output_path, save_results, compare_file)</h1>
+      <h1 class="signature" translate="no">child_spec(init_arg)</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/benchmark/http.ex#L26" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/channel.ex#L10" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -149,25 +186,96 @@ to Cloudflare Durable Objects, including initialization, method calls, and state
 
   <section class="docstring">
 
-      <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> run(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil) :: :ok</pre>
+  </section>
+</section>
+<section class="detail" id="handle_in/3">
 
-      </div>
+  <div class="detail-header">
+    <a href="#handle_in/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">handle_in(binary, payload, socket)</h1>
 
-<p>Runs the HTTP benchmark suite.</p><h2 id="run/3-parameters" class="section-heading">
-  <a href="#run/3-parameters" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Parameters</span>
-</h2>
-<ul><li><code class="inline">output_path</code> - Optional path to save benchmark results to</li><li><code class="inline">save_results</code> - Whether to save results to a timestamped file</li><li><code class="inline">compare_file</code> - Optional path to a previous benchmark result to compare against</li></ul><h2 id="run/3-returns" class="section-heading">
-  <a href="#run/3-returns" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Returns</span>
-</h2>
-<ul><li><code class="inline">:ok</code> - The benchmark completed successfully</li></ul>
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/channel.ex#L96" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Handles explicit refresh requests from the client.</p>
+  </section>
+</section>
+<section class="detail" id="handle_info/2">
+
+  <div class="detail-header">
+    <a href="#handle_info/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">handle_info(arg, socket)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/channel.ex#L59" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Handles Durable Object update broadcasts.</p><p>When a Durable Object state is updated, this pushes the update
+to the client via the channel.</p>
+  </section>
+</section>
+<section class="detail" id="join/3">
+
+  <div class="detail-header">
+    <a href="#join/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">join(arg, params, socket)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/channel.ex#L23" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Handles joining the Durable Object channel.</p><p>When a client joins, it will:</p><ol><li>Start or get the DurableServer process</li><li>Track the client with Presence</li><li>Return the current state to the client</li></ol>
+  </section>
+</section>
+<section class="detail" id="start_link/1">
+
+  <div class="detail-header">
+    <a href="#start_link/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">start_link(triplet)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/channel.ex#L10" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+
   </section>
 </section>
 

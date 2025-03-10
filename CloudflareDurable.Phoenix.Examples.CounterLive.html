@@ -8,7 +8,7 @@
     <meta name="project" content="cloudflare_durable v0.2.0">
 
 
-    <title>CloudflareDurable.Benchmark.Http — cloudflare_durable v0.2.0</title>
+    <title>CloudflareDurable.Phoenix.Examples.CounterLive — cloudflare_durable v0.2.0</title>
 
     <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
 
@@ -75,12 +75,12 @@ cloudflare_durable
 <div id="top-content">
   <div class="heading-with-actions top-heading">
     <h1>
-      <span translate="no">CloudflareDurable.Benchmark.Http</span> 
+      <span translate="no">CloudflareDurable.Phoenix.Examples.CounterLive</span> 
       <small class="app-vsn" translate="no">(cloudflare_durable v0.2.0)</small>
 
     </h1>
 
-      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/benchmark/http.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/examples/counter_live.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -89,8 +89,8 @@ cloudflare_durable
 
 
     <section id="moduledoc">
-<p>Benchmarks for HTTP requests to Cloudflare Durable Objects.</p><p>This module provides benchmarks for measuring the performance of HTTP requests
-to Cloudflare Durable Objects, including initialization, method calls, and state operations.</p>
+<p>Example LiveView for a Durable Object counter.</p><p>This module demonstrates how to use the CloudflareDurable.Phoenix adapter
+with a Phoenix LiveView to create a real-time, globally distributed counter.</p>
     </section>
 
 </div>
@@ -109,11 +109,41 @@ to Cloudflare Durable Objects, including initialization, method calls, and state
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#run/3" data-no-tooltip="" translate="no">run(output_path, save_results, compare_file)</a>
+        <a href="#handle_event/3" data-no-tooltip="" translate="no">handle_event(binary, params, socket)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Runs the HTTP benchmark suite.</p></div>
+        <div class="summary-synopsis"><p>Handles the reset event.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#handle_info/2" data-no-tooltip="" translate="no">handle_info(arg, socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Handles Durable Object state updates.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#mount/3" data-no-tooltip="" translate="no">mount(params, session, socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Mounts the LiveView.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#render/1" data-no-tooltip="" translate="no">render(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders the LiveView.</p></div>
 
     </div>
 
@@ -130,17 +160,17 @@ to Cloudflare Durable Objects, including initialization, method calls, and state
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="run/3">
+<section class="detail" id="handle_event/3">
 
   <div class="detail-header">
-    <a href="#run/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#handle_event/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">run(output_path, save_results, compare_file)</h1>
+      <h1 class="signature" translate="no">handle_event(binary, params, socket)</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/benchmark/http.ex#L26" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/examples/counter_live.ex#L46" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -149,25 +179,74 @@ to Cloudflare Durable Objects, including initialization, method calls, and state
 
   <section class="docstring">
 
-      <div class="specs">
+<p>Handles the reset event.</p>
+  </section>
+</section>
+<section class="detail" id="handle_info/2">
 
-          <pre translate="no"><span class="attribute">@spec</span> run(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil) :: :ok</pre>
+  <div class="detail-header">
+    <a href="#handle_info/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">handle_info(arg, socket)</h1>
 
-      </div>
 
-<p>Runs the HTTP benchmark suite.</p><h2 id="run/3-parameters" class="section-heading">
-  <a href="#run/3-parameters" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Parameters</span>
-</h2>
-<ul><li><code class="inline">output_path</code> - Optional path to save benchmark results to</li><li><code class="inline">save_results</code> - Whether to save results to a timestamped file</li><li><code class="inline">compare_file</code> - Optional path to a previous benchmark result to compare against</li></ul><h2 id="run/3-returns" class="section-heading">
-  <a href="#run/3-returns" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Returns</span>
-</h2>
-<ul><li><code class="inline">:ok</code> - The benchmark completed successfully</li></ul>
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/examples/counter_live.ex#L81" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Handles Durable Object state updates.</p>
+  </section>
+</section>
+<section class="detail" id="mount/3">
+
+  <div class="detail-header">
+    <a href="#mount/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">mount(params, session, socket)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/examples/counter_live.ex#L18" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Mounts the LiveView.</p><p>Gets the counter ID from URL parameters or uses a default,
+and subscribes to updates for that counter.</p>
+  </section>
+</section>
+<section class="detail" id="render/1">
+
+  <div class="detail-header">
+    <a href="#render/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">render(assigns)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/examples/counter_live.ex#L88" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Renders the LiveView.</p>
   </section>
 </section>
 

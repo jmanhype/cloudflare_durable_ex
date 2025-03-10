@@ -7,6 +7,13 @@ CloudflareDurable.Benchmark.Utils.html
 CloudflareDurable.Benchmark.WebSocket.html
 CloudflareDurable.Client.html
 CloudflareDurable.HTTP.html
+CloudflareDurable.Phoenix.Application.html
+CloudflareDurable.Phoenix.Channel.html
+CloudflareDurable.Phoenix.DurableServer.html
+CloudflareDurable.Phoenix.Examples.CounterLive.html
+CloudflareDurable.Phoenix.Live.DurableComponent.html
+CloudflareDurable.Phoenix.Presence.html
+CloudflareDurable.Phoenix.html
 CloudflareDurable.WebSocket.Connection.html
 CloudflareDurable.WebSocket.Supervisor.html
 CloudflareDurable.WebSocket.html
@@ -23,8 +30,8 @@ dist/lato-latin-700-normal-2XVSBPG4.woff2
 dist/lato-latin-ext-400-normal-N27NCBWW.woff2
 dist/lato-latin-ext-700-normal-Q2L5DVMW.woff2
 dist/remixicon-NKANDIL5.woff2
-dist/search_data-A69DF869.js
-dist/sidebar_items-D2B1E5F9.js
+dist/search_data-76E4E33E.js
+dist/sidebar_items-2B29FCAA.js
 index.html
 license.html
 readme.html

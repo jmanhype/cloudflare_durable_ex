@@ -8,7 +8,7 @@
     <meta name="project" content="cloudflare_durable v0.2.0">
 
 
-    <title>CloudflareDurable.App — cloudflare_durable v0.2.0</title>
+    <title>CloudflareDurable.Phoenix.Live.DurableComponent — cloudflare_durable v0.2.0</title>
 
     <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
 
@@ -75,12 +75,12 @@ cloudflare_durable
 <div id="top-content">
   <div class="heading-with-actions top-heading">
     <h1>
-      <span translate="no">CloudflareDurable.App</span> 
+      <span translate="no">CloudflareDurable.Phoenix.Live.DurableComponent</span> 
       <small class="app-vsn" translate="no">(cloudflare_durable v0.2.0)</small>
 
     </h1>
 
-      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/app.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/live/durable_component.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
@@ -89,8 +89,9 @@ cloudflare_durable
 
 
     <section id="moduledoc">
-<p>Application module for CloudflareDurable.</p><p>This module starts the necessary processes for the CloudflareDurable application,
-including the WebSocket supervisor and Finch HTTP client pool.</p>
+<p>LiveView component for Durable Objects.</p><p>This component provides a UI for interacting with Durable Objects,
+including viewing state, updating values, and calling methods.
+It handles real-time updates and provides a consistent user experience.</p>
     </section>
 
 </div>
@@ -102,28 +103,6 @@ including the WebSocket supervisor and Finch HTTP client pool.</p>
       </a>
       <span class="text">Summary</span>
     </h1>
-<div class="summary-types summary">
-  <h2>
-    <a href="#types">Types</a>
-  </h2>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:start_args/0" data-no-tooltip="" translate="no">start_args()</a>
-
-      </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:start_type/0" data-no-tooltip="" translate="no">start_type()</a>
-
-      </div>
-
-    </div>
-
-</div>
 <div class="summary-functions summary">
   <h2>
     <a href="#functions">Functions</a>
@@ -131,11 +110,51 @@ including the WebSocket supervisor and Finch HTTP client pool.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#start/2" data-no-tooltip="" translate="no">start(type, args)</a>
+        <a href="#handle_event/3" data-no-tooltip="" translate="no">handle_event(binary, arg2, socket)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Starts the CloudflareDurable application.</p></div>
+        <div class="summary-synopsis"><p>Handles refresh events from the UI.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#handle_info/2" data-no-tooltip="" translate="no">handle_info(arg, socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Handles Durable Object state updates from PubSub.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#mount/1" data-no-tooltip="" translate="no">mount(socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Initializes the component state.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#render/1" data-no-tooltip="" translate="no">render(assigns)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Renders the LiveView component.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#update/2" data-no-tooltip="" translate="no">update(assigns, socket)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Updates the component when new assigns are received.</p></div>
 
     </div>
 
@@ -143,74 +162,6 @@ including the WebSocket supervisor and Finch HTTP client pool.</p>
 
   </section>
 
-
-  <section id="types" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#types">
-        <i class="ri-link-m" aria-hidden="true"></i>
-      </a>
-      <span class="text">Types</span>
-    </h1>
-    <div class="types-list">
-<section class="detail" id="t:start_args/0">
-
-  <div class="detail-header">
-    <a href="#t:start_args/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">start_args()</h1>
-
-
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/app.ex#L11" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> start_args() :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()</pre>
-
-      </div>
-
-
-  </section>
-</section>
-<section class="detail" id="t:start_type/0">
-
-  <div class="detail-header">
-    <a href="#t:start_type/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-    </a>
-    <div class="heading-with-actions">
-      <h1 class="signature" translate="no">start_type()</h1>
-
-
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/app.ex#L10" class="icon-action" rel="help" aria-label="View Source">
-          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-        </a>
-
-    </div>
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> start_type() :: :normal | {:takeover, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">node</a>()} | {:failover, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">node</a>()}</pre>
-
-      </div>
-
-
-  </section>
-</section>
-
-    </div>
-  </section>
 
   <section id="functions" class="details-list">
     <h1 class="section-heading">
@@ -220,17 +171,17 @@ including the WebSocket supervisor and Finch HTTP client pool.</p>
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="start/2">
+<section class="detail" id="handle_event/3">
 
   <div class="detail-header">
-    <a href="#start/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+    <a href="#handle_event/3" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
     </a>
     <div class="heading-with-actions">
-      <h1 class="signature" translate="no">start(type, args)</h1>
+      <h1 class="signature" translate="no">handle_event(binary, arg2, socket)</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/app.ex#L25" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/live/durable_component.ex#L78" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -239,25 +190,107 @@ including the WebSocket supervisor and Finch HTTP client pool.</p>
 
   <section class="docstring">
 
-      <div class="specs">
+<p>Handles refresh events from the UI.</p>
+  </section>
+</section>
+<section class="detail" id="handle_info/2">
 
-          <pre translate="no"><span class="attribute">@spec</span> start(<a href="#t:start_type/0">start_type</a>(), <a href="#t:start_args/0">start_args</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+  <div class="detail-header">
+    <a href="#handle_info/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">handle_info(arg, socket)</h1>
 
-      </div>
 
-<p>Starts the CloudflareDurable application.</p><h2 id="start/2-parameters" class="section-heading">
-  <a href="#start/2-parameters" class="hover-link">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/live/durable_component.ex#L131" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Handles Durable Object state updates from PubSub.</p>
+  </section>
+</section>
+<section class="detail" id="mount/1">
+
+  <div class="detail-header">
+    <a href="#mount/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">mount(socket)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/live/durable_component.ex#L17" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Initializes the component state.</p>
+  </section>
+</section>
+<section class="detail" id="render/1">
+
+  <div class="detail-header">
+    <a href="#render/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">render(assigns)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/live/durable_component.ex#L139" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Renders the LiveView component.</p>
+  </section>
+</section>
+<section class="detail" id="update/2">
+
+  <div class="detail-header">
+    <a href="#update/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">update(assigns, socket)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/phoenix/live/durable_component.ex#L34" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+<p>Updates the component when new assigns are received.</p><h2 id="update/2-required-assigns" class="section-heading">
+  <a href="#update/2-required-assigns" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Parameters</span>
+  <span class="text">Required Assigns</span>
 </h2>
-<ul><li><code class="inline">type</code> - Start type (e.g., :normal, {:takeover, node()}, {:failover, node()})</li><li><code class="inline">args</code> - Start arguments</li></ul><h2 id="start/2-returns" class="section-heading">
-  <a href="#start/2-returns" class="hover-link">
+<ul><li><code class="inline">:object_id</code> - The ID of the Durable Object to display</li></ul><h2 id="update/2-optional-assigns" class="section-heading">
+  <a href="#update/2-optional-assigns" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Returns</span>
+  <span class="text">Optional Assigns</span>
 </h2>
-<ul><li><code class="inline">{:ok, pid}</code> - Successfully started the application supervisor</li><li><code class="inline">{:error, reason}</code> - Failed to start the application</li></ul>
+<ul><li><code class="inline">:title</code> - Custom title for the component</li><li><code class="inline">:allow_updates</code> - Whether to show update controls (default: true)</li><li><code class="inline">:allow_method_calls</code> - Whether to show method call controls (default: true)</li></ul>
   </section>
 </section>
 
