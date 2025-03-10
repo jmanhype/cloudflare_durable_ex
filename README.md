@@ -7,6 +7,8 @@
 
 An Elixir client for Cloudflare Durable Objects, providing a simple interface for distributed state management, WebSocket connections, and method invocation. This library enables Elixir applications to leverage Cloudflare's globally distributed persistent state without managing complex infrastructure.
 
+**📚 [View Full Documentation](https://jmanhype.github.io/cloudflare_durable_ex/)** - Comprehensive guides, API reference, and examples
+
 ## Features
 
 - Initialize Durable Objects with initial state
@@ -16,6 +18,24 @@ An Elixir client for Cloudflare Durable Objects, providing a simple interface fo
 - Event-based architecture using Telemetry
 - Configurable through standard Elixir configuration
 - Type specifications for better development experience
+
+## Phoenix Integration
+
+CloudflareDurable includes a Phoenix adapter that integrates with Phoenix Channels, LiveView, and PubSub for real-time communication with Cloudflare Durable Objects. For Phoenix applications, this provides a seamless way to interact with Durable Objects:
+
+- Real-time updates via Phoenix Channels and LiveView
+- Bidirectional communication with WebSockets
+- LiveView components for easy UI integration
+- Presence tracking of connected clients
+- Automatic state synchronization
+
+See the [Phoenix Adapter Documentation](lib/cloudflare_durable/phoenix/README.md) for setup and usage examples.
+
+## Documentation
+
+- **[GitHub Pages Documentation](https://jmanhype.github.io/cloudflare_durable_ex/)** - Our main documentation site with comprehensive guides and examples
+- [API Reference](https://hexdocs.pm/cloudflare_durable) - Detailed API documentation on HexDocs
+- [Examples](https://github.com/jmanhype/cloudflare_durable_ex/tree/main/examples) - Code examples showing various use cases
 
 ## Installation
 
@@ -97,8 +117,11 @@ CloudflareDurable.WebSocket.Connection.register_handler(socket, fn message ->
   IO.puts("Received message: #{inspect(message)}")
 end)
 
-# Send a message through WebSocket
-CloudflareDurable.WebSocket.Connection.send_message(socket, %{type: "update", value: 42})
+# Send a message through WebSocket (new simplified API)
+CloudflareDurable.websocket_send(socket, Jason.encode!(%{type: "update", value: 42}))
+
+# When done, close the connection properly
+CloudflareDurable.websocket_close(socket)
 ```
 
 ### Advanced Examples
@@ -260,6 +283,70 @@ defmodule MyApp.Telemetry do
     IO.puts("Error in CloudflareDurable: #{inspect(metadata.error)}")
   end
 end
+```
+
+## Benchmarking
+
+CloudflareDurable includes benchmarking tools to measure the performance of various operations. These benchmarks are useful for:
+
+- Comparing performance across different environments
+- Identifying bottlenecks in your application
+- Understanding the performance characteristics of Durable Objects
+
+### Running Benchmarks
+
+To run all benchmarks:
+
+```bash
+mix benchmark
+```
+
+To run a specific benchmark category:
+
+```bash
+# HTTP request benchmarks
+mix benchmark http
+
+# WebSocket benchmarks
+mix benchmark websocket
+
+# State operation benchmarks
+mix benchmark state
+```
+
+### Benchmark Options
+
+The following options are available:
+
+- `--output` or `-o`: Specify an output directory for HTML reports
+- `--save` or `-s`: Save the benchmark results for later comparison
+- `--compare` or `-c`: Compare with a previously saved benchmark result
+
+Example:
+
+```bash
+# Run benchmarks, save results, and generate HTML reports
+mix benchmark --output reports --save
+
+# Compare current performance with previous results
+mix benchmark --compare benchmarks/results/http_20231001_120000.benchee
+```
+
+### Configuring Benchmarks
+
+Benchmarks can be configured using environment variables:
+
+- `BENCHMARK_WORKER_URL`: The URL of the Cloudflare Worker (default: http://localhost:8787)
+- `BENCHMARK_CONCURRENCY`: The number of concurrent operations (default: 4)
+- `BENCHMARK_DURATION`: The duration of each benchmark in seconds (default: 5)
+
+Example:
+
+```bash
+BENCHMARK_WORKER_URL=https://durable-objects.example.workers.dev \
+BENCHMARK_CONCURRENCY=8 \
+BENCHMARK_DURATION=10 \
+mix benchmark
 ```
 
 ## Contributing
