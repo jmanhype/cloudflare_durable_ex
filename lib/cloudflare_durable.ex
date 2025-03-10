@@ -20,6 +20,7 @@ defmodule CloudflareDurable do
   """
   
   alias CloudflareDurable.Client
+  require Logger
   
   @type object_id :: String.t()
   @type method_name :: String.t()
@@ -180,5 +181,39 @@ defmodule CloudflareDurable do
         {:ok, websocket_connection()} | {:error, error_reason()}
   def websocket_connect(object_id, path \\ "/", opts \\ []) do
     Client.websocket_connect(Client, object_id, path, opts)
+  end
+
+  @doc """
+  Sends a message over a WebSocket connection.
+
+  ## Parameters
+    * `connection` - WebSocket connection PID
+    * `message` - Message to send
+
+  ## Returns
+    * `:ok` - Message sent successfully
+    * `{:error, reason}` - Failed to send message
+  """
+  @spec websocket_send(websocket_connection(), String.t()) :: :ok | {:error, error_reason()}
+  def websocket_send(connection, message) do
+    Logger.debug("Sending WebSocket message: #{inspect(message)}")
+    CloudflareDurable.WebSocket.Connection.send_message(connection, message)
+  end
+
+  @doc """
+  Closes a WebSocket connection.
+
+  ## Parameters
+    * `connection` - WebSocket connection PID
+
+  ## Returns
+    * `:ok` - Connection closed successfully
+    * `{:error, reason}` - Failed to close connection
+  """
+  @spec websocket_close(websocket_connection()) :: :ok | {:error, error_reason()}
+  def websocket_close(connection) do
+    Logger.debug("Closing WebSocket connection")
+    GenServer.stop(connection, :normal)
+    :ok
   end
 end 

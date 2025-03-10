@@ -100,86 +100,120 @@ defmodule CloudflareDurable.WebSocketTestHelper do
   # Private implementation
   
   @doc false
-  # Loop that processes messages in the mock connection
   defp mock_connection_loop(test_pid, auto_respond, simulate_errors) do
+    # Register this process with a unique name to avoid conflicts
+    Process.register(self(), :"CloudflareDurable.WebSocketTestMock.#{:erlang.unique_integer([:positive])}")
+    
+    if simulate_errors do
+      # Simulate a connection error
+      Process.send_after(
+        test_pid, 
+        {:websocket_error, self(), "connection refused"}, 
+        10
+      )
+    end
+    
+    # Enter the loop
+    mock_connection_receive_loop(test_pid, auto_respond)
+  end
+  
+  defp mock_connection_receive_loop(test_pid, auto_respond) do
     receive do
-      {:send, message} ->
-        if simulate_errors do
-          # Simulate a network error
-          Process.send_after(
-            test_pid, 
-            {:websocket_error, self(), :network_error}, 
-            10
-          )
-        else
-          # If auto-respond is enabled, simulate a response
-          if auto_respond do
-            response = generate_response(message)
-            Process.send_after(
-              test_pid, 
-              {:websocket_message, self(), response}, 
-              10
-            )
+      {:send_message, message} ->
+        # Handle the message
+        if auto_respond do
+          # Extract the type from the JSON message
+          case Jason.decode(message) do
+            {:ok, %{"type" => type} = decoded} ->
+              # Determine the response based on the message type
+              response = case type do
+                "echo" -> 
+                  data = Map.get(decoded, "data", "")
+                  Jason.encode!(%{type: "echo_response", data: data})
+                
+                "get" -> 
+                  key = Map.get(decoded, "key", "")
+                  Jason.encode!(%{type: "get_response", key: key, value: "value_#{key}"})
+                
+                "set" -> 
+                  key = Map.get(decoded, "key", "")
+                  value = Map.get(decoded, "value", "")
+                  Jason.encode!(%{type: "set_response", key: key, value: value})
+                
+                "error" -> 
+                  # Simulate an error
+                  Process.send_after(
+                    test_pid, 
+                    {:websocket_error, self(), "error requested"}, 
+                    10
+                  )
+                  nil
+                
+                "close" -> 
+                  # Simulate a close
+                  Process.send_after(
+                    test_pid, 
+                    {:websocket_closed, self()}, 
+                    10
+                  )
+                  nil
+                
+                _ -> 
+                  Jason.encode!(%{type: "unknown_command"})
+              end
+              
+              # Send the response if it's not nil
+              if response do
+                Process.send_after(
+                  test_pid, 
+                  {:websocket_message, self(), response}, 
+                  10
+                )
+              end
+            
+            {:error, _} ->
+              # Invalid JSON, send an error
+              Process.send_after(
+                test_pid, 
+                {:websocket_error, self(), "invalid JSON"}, 
+                10
+              )
           end
         end
         
-        mock_connection_loop(test_pid, auto_respond, simulate_errors)
-        
-      {:close, _} ->
-        # Simulate connection closed
-        Process.send_after(
-          test_pid, 
-          {:websocket_closed, self()}, 
-          10
-        )
-        
-      other ->
-        # Forward any other messages to the test process
-        send(test_pid, {:mock_connection_received, other})
-        mock_connection_loop(test_pid, auto_respond, simulate_errors)
-    after
-      60000 ->
-        # Timeout after 1 minute of inactivity
-        nil
+        # Send a reply to the GenServer call
+        send(test_pid, {:mock_send_reply, :ok})
+      
+      {:subscribe, subscriber_pid} ->
+        # Send a reply to the GenServer call
+        send(test_pid, {:mock_subscribe_reply, :ok})
+      
+      {:unsubscribe, subscriber_pid} ->
+        # Send a reply to the GenServer call
+        send(test_pid, {:mock_unsubscribe_reply, :ok})
+      
+      :status ->
+        # Send a reply to the GenServer call
+        send(test_pid, {:mock_status_reply, :connected})
+      
+      {:system, from, request} ->
+        # System messages for GenServer.stop
+        case request do
+          :get_state ->
+            send(from, {:state, %{test_pid: test_pid}})
+          
+          {:terminate, _reason, _a} ->
+            # Handle termination
+            send(test_pid, {:mock_terminated})
+            exit(:normal)
+        end
+      
+      _other ->
+        # Ignore any other messages
+        :ok
     end
-  end
-  
-  @doc false
-  # Generate a response based on the request message
-  defp generate_response(message) do
-    case Jason.decode(message) do
-      {:ok, %{"type" => "echo", "id" => id, "data" => data}} ->
-        Jason.encode!(%{
-          type: "echo_response",
-          id: id,
-          data: data,
-          timestamp: DateTime.utc_now() |> DateTime.to_iso8601()
-        })
-        
-      {:ok, %{"type" => "get", "id" => id, "key" => key}} ->
-        Jason.encode!(%{
-          type: "get_response",
-          id: id,
-          key: key,
-          value: "test_value_#{key}",
-          timestamp: DateTime.utc_now() |> DateTime.to_iso8601()
-        })
-        
-      {:ok, %{"type" => "set", "id" => id, "key" => key}} ->
-        Jason.encode!(%{
-          type: "set_response",
-          id: id,
-          key: key,
-          status: "success",
-          timestamp: DateTime.utc_now() |> DateTime.to_iso8601()
-        })
-        
-      _ ->
-        Jason.encode!(%{
-          type: "error",
-          error: "Invalid message format",
-          timestamp: DateTime.utc_now() |> DateTime.to_iso8601()
-        })
-    end
+    
+    # Continue the loop
+    mock_connection_receive_loop(test_pid, auto_respond)
   end
 end 

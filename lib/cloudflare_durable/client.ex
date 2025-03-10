@@ -47,18 +47,28 @@ defmodule CloudflareDurable.Client do
   """
   @spec initialize(object_id(), map(), keyword()) :: {:ok, map()} | {:error, error_reason()}
   def initialize(object_id, data, opts \\ []) do
-    worker_url = Keyword.get(opts, :worker_url, default_worker_url())
-    
-    :telemetry.span(
-      [:cloudflare_durable, :request],
-      %{object_id: object_id, operation: :initialize},
-      fn ->
-        Logger.debug("Initializing Durable Object: #{object_id}")
+    # Validate input parameters
+    cond do
+      is_nil(object_id) or not is_binary(object_id) ->
+        {:error, :invalid_object_id}
+      
+      is_nil(data) or not is_map(data) ->
+        {:error, :invalid_data}
+      
+      true ->
+        worker_url = Keyword.get(opts, :worker_url, default_worker_url())
         
-        result = make_request(worker_url, "/initialize/#{object_id}", :post, Jason.encode!(data))
-        {result, %{object_id: object_id, operation: :initialize}}
-      end
-    )
+        :telemetry.span(
+          [:cloudflare_durable, :request],
+          %{object_id: object_id, operation: :initialize},
+          fn ->
+            Logger.debug("Initializing Durable Object: #{object_id}")
+            
+            result = make_request(worker_url, "/initialize/#{object_id}", :post, Jason.encode!(data))
+            {result, %{object_id: object_id, operation: :initialize}}
+          end
+        )
+    end
   end
 
   @doc """
@@ -77,21 +87,34 @@ defmodule CloudflareDurable.Client do
   """
   @spec call_method(object_id(), method_name(), map(), keyword()) :: {:ok, map()} | {:error, error_reason()}
   def call_method(object_id, method, params, opts \\ []) do
-    worker_url = Keyword.get(opts, :worker_url, default_worker_url())
-    
-    :telemetry.span(
-      [:cloudflare_durable, :request],
-      %{object_id: object_id, method: method},
-      fn ->
-        Logger.debug("Calling method #{method} on Durable Object: #{object_id}")
+    # Validate input parameters
+    cond do
+      is_nil(object_id) or not is_binary(object_id) ->
+        {:error, :invalid_object_id}
+      
+      is_nil(method) or not is_binary(method) ->
+        {:error, :invalid_method_name}
+      
+      is_nil(params) or not is_map(params) ->
+        {:error, :invalid_params}
+      
+      true ->
+        worker_url = Keyword.get(opts, :worker_url, default_worker_url())
         
-        path = "/object/#{object_id}/method/#{method}"
-        body = Jason.encode!(params)
-        
-        result = make_request(worker_url, path, :post, body)
-        {result, %{object_id: object_id, method: method}}
-      end
-    )
+        :telemetry.span(
+          [:cloudflare_durable, :request],
+          %{object_id: object_id, method: method},
+          fn ->
+            Logger.debug("Calling method #{method} on Durable Object: #{object_id}")
+            
+            path = "/object/#{object_id}/method/#{method}"
+            body = Jason.encode!(params)
+            
+            result = make_request(worker_url, path, :post, body)
+            {result, %{object_id: object_id, method: method}}
+          end
+        )
+    end
   end
 
   @doc """
@@ -227,6 +250,75 @@ defmodule CloudflareDurable.Client do
     )
   end
 
+  @doc """
+  Gets a namespace object ID from a namespace and name.
+  
+  ## Parameters
+    * `client` - Client module
+    * `namespace` - Durable Object namespace
+    * `name` - Name within the namespace
+    * `opts` - Optional parameters:
+      * `:worker_url` - Override the default worker URL
+  
+  ## Returns
+    * `{:ok, object_id}` - Successfully got object ID
+    * `{:error, reason}` - Failed to get object ID
+  """
+  @spec get_namespace_object(t(), String.t(), String.t(), keyword()) :: {:ok, String.t()} | {:error, error_reason()}
+  def get_namespace_object(_client, namespace, name, opts \\ []) do
+    worker_url = Keyword.get(opts, :worker_url, default_worker_url())
+    
+    :telemetry.span(
+      [:cloudflare_durable, :request],
+      %{namespace: namespace, name: name, operation: :get_namespace_object},
+      fn ->
+        Logger.debug("Getting namespace object ID for namespace: #{namespace}, name: #{name}")
+        
+        path = "/namespace/#{namespace}/id/#{name}"
+        
+        result = make_request(worker_url, path, :get, "")
+        {result, %{namespace: namespace, name: name, operation: :get_namespace_object}}
+      end
+    )
+  end
+
+  @doc """
+  Establishes a WebSocket connection to a Durable Object.
+  
+  ## Parameters
+    * `client` - Client module
+    * `object_id` - ID of the Durable Object to connect to
+    * `path` - Path to connect to
+    * `opts` - Connection options:
+      * `:subscriber` - PID to receive WebSocket messages
+      * `:auto_reconnect` - Whether to automatically reconnect on disconnect (default: true)
+      * `:backoff_initial` - Initial backoff time in ms (default: 500)
+      * `:backoff_max` - Maximum backoff time in ms (default: 30000)
+  
+  ## Returns
+    * `{:ok, pid}` - Successfully established WebSocket connection
+    * `{:error, reason}` - Failed to establish WebSocket connection
+  """
+  @spec websocket_connect(t(), String.t(), String.t(), keyword()) :: {:ok, pid()} | {:error, error_reason()}
+  def websocket_connect(_client, object_id, path, opts \\ []) do
+    worker_url = Keyword.get(opts, :worker_url, default_worker_url())
+    
+    # Replace http/https with ws/wss
+    ws_url = String.replace(worker_url, ~r/^http(s?):\/\//, "ws\\1://")
+    ws_url = "#{ws_url}/object/#{object_id}/websocket#{path}"
+    
+    connection_opts = [
+      url: ws_url,
+      auto_reconnect: Keyword.get(opts, :auto_reconnect, true),
+      backoff_initial: Keyword.get(opts, :backoff_initial, 500),
+      backoff_max: Keyword.get(opts, :backoff_max, 30000),
+      subscriber: Keyword.get(opts, :subscriber)
+    ]
+    
+    Logger.debug("Connecting to WebSocket for Durable Object: #{object_id}, path: #{path}")
+    CloudflareDurable.WebSocket.Supervisor.start_connection(object_id, connection_opts)
+  end
+
   # Private functions
 
   defp default_worker_url do
@@ -252,17 +344,34 @@ defmodule CloudflareDurable.Client do
       {:ok, %Finch.Response{status: status, body: response_body}} when status in 200..299 ->
         case Jason.decode(response_body) do
           {:ok, decoded} -> {:ok, decoded}
-          {:error, _} = error ->
+          {:error, _} -> 
+            Logger.error("Invalid response: Failed to parse JSON response")
             :telemetry.execute([:cloudflare_durable, :error], %{count: 1}, %{reason: :json_decode_error})
-            error
+            {:error, :invalid_response}
         end
         
       {:ok, %Finch.Response{status: status, body: response_body}} ->
-        :telemetry.execute([:cloudflare_durable, :error], %{count: 1}, %{reason: :http_error, status: status})
-        {:error, "HTTP Error #{status}: #{response_body}"}
+        error_reason = case status do
+          400 -> :invalid_request
+          401 -> :unauthorized
+          404 -> :not_found
+          429 -> :rate_limited
+          500 -> :server_error
+          _ -> :http_error
+        end
+        
+        Logger.error("HTTP error #{status}: #{response_body}")
+        :telemetry.execute([:cloudflare_durable, :error], %{count: 1}, %{reason: error_reason, status: status})
+        {:error, error_reason}
+        
+      {:error, %Mint.TransportError{reason: reason}} ->
+        Logger.error("Network error occurred during request: #{inspect(reason)}")
+        :telemetry.execute([:cloudflare_durable, :error], %{count: 1}, %{reason: :network_error})
+        {:error, :network_error}
         
       {:error, _} = error ->
-        :telemetry.execute([:cloudflare_durable, :error], %{count: 1}, %{reason: :network_error})
+        Logger.error("Unknown error occurred during request")
+        :telemetry.execute([:cloudflare_durable, :error], %{count: 1}, %{reason: :unknown_error})
         error
     end
   end

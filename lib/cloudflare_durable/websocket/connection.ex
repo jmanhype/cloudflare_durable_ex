@@ -58,6 +58,12 @@ defmodule CloudflareDurable.WebSocket.Connection do
   def start_link({object_id, opts}) do
     GenServer.start_link(__MODULE__, {object_id, opts})
   end
+  
+  # Also support the format used by the supervisor
+  @spec start_link([object_id() | connection_opts()]) :: GenServer.on_start()
+  def start_link([object_id, opts]) when is_list(opts) do
+    start_link({object_id, opts})
+  end
 
   @doc """
   Sends a message over the WebSocket connection.

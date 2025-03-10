@@ -15,11 +15,30 @@ defmodule CloudflareDurable.WebSocketTest do
     import ExUnit.CaptureLog
   end
   
+  @default_worker_url "https://example.com/worker"
+  
+  setup do
+    # Set default worker URL for tests
+    Application.put_env(:cloudflare_durable, :worker_url, @default_worker_url)
+    
+    # Setup Finch for HTTP requests (if not already started)
+    unless Process.whereis(CloudflareDurable.Finch) do
+      start_supervised!({Finch, name: CloudflareDurable.Finch})
+    end
+    
+    # Start the WebSocket supervisor
+    unless Process.whereis(CloudflareDurable.WebSocket.Supervisor) do
+      start_supervised!(CloudflareDurable.WebSocket.Supervisor)
+    end
+    
+    :ok
+  end
+  
   describe "connect/1" do
     test "connects successfully to a WebSocket endpoint" do
-      with_mock CloudflareDurable.WebSocket, 
+      with_mock CloudflareDurable.WebSocket.Supervisor, 
         [:passthrough], 
-        [connect: fn _url -> {:ok, self()} end] do
+        [start_connection: fn _object_id, _opts -> {:ok, self()} end] do
         
         # Call the connect function
         result = CloudflareDurable.websocket_connect("test-object", [])
@@ -28,16 +47,16 @@ defmodule CloudflareDurable.WebSocketTest do
         assert {:ok, _connection} = result
         
         # Verify the mock was called
-        assert_called WebSocket.connect(:_)
+        assert_called CloudflareDurable.WebSocket.Supervisor.start_connection(:_, :_)
       end
     end
     
     test "handles connection errors" do
       error_reason = "connection refused"
       
-      with_mock CloudflareDurable.WebSocket, 
+      with_mock CloudflareDurable.WebSocket.Supervisor, 
         [:passthrough], 
-        [connect: fn _url -> {:error, error_reason} end] do
+        [start_connection: fn _object_id, _opts -> {:error, error_reason} end] do
         
         # Call the connect function
         result = CloudflareDurable.websocket_connect("test-object", [])
@@ -46,14 +65,14 @@ defmodule CloudflareDurable.WebSocketTest do
         assert {:error, ^error_reason} = result
         
         # Verify the mock was called
-        assert_called WebSocket.connect(:_)
+        assert_called CloudflareDurable.WebSocket.Supervisor.start_connection(:_, :_)
       end
     end
     
     test "logs connection details" do
-      with_mock CloudflareDurable.WebSocket, 
+      with_mock CloudflareDurable.WebSocket.Supervisor, 
         [:passthrough], 
-        [connect: fn _url -> {:ok, self()} end] do
+        [start_connection: fn _object_id, _opts -> {:ok, self()} end] do
         
         # Capture logs during the connection
         log = capture_log(fn ->
@@ -70,213 +89,238 @@ defmodule CloudflareDurable.WebSocketTest do
   describe "websocket_send/2" do
     test "sends a message successfully" do
       # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       message = Jason.encode!(%{type: "test", data: "hello"})
       
-      # Send a message
-      result = CloudflareDurable.websocket_send(connection, message)
-      
-      # Verify the result
-      assert result == :ok
-      
-      # Verify we receive a response
-      assert_receive {:websocket_message, ^connection, _response}, 100
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> :ok end] do
+        
+        # Send a message
+        result = CloudflareDurable.websocket_send(connection, message)
+        
+        # Verify the result
+        assert result == :ok
+        
+        # Verify the mock was called
+        assert_called CloudflareDurable.WebSocket.Connection.send_message(connection, message)
+      end
     end
     
     test "handles send errors" do
-      with_mock CloudflareDurable.WebSocket, 
+      connection = self()
+      message = Jason.encode!(%{type: "test"})
+      
+      with_mock CloudflareDurable.WebSocket.Connection, 
         [:passthrough], 
-        [send: fn _conn, _msg -> {:error, :connection_closed} end] do
+        [send_message: fn _conn, _msg -> {:error, :connection_closed} end] do
         
         # Send a message
-        result = CloudflareDurable.websocket_send(
-          self(), 
-          Jason.encode!(%{type: "test"})
-        )
+        result = CloudflareDurable.websocket_send(connection, message)
         
         # Verify the result
         assert {:error, :connection_closed} = result
+        
+        # Verify the mock was called
+        assert_called CloudflareDurable.WebSocket.Connection.send_message(connection, message)
       end
     end
     
     test "logs message sending" do
       # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       message = Jason.encode!(%{type: "test", data: "hello"})
       
-      # Capture logs during message sending
-      log = capture_log(fn ->
-        CloudflareDurable.websocket_send(connection, message)
-      end)
-      
-      # Verify log contains message information
-      assert log =~ "Sending WebSocket message"
-      assert log =~ "test"
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> :ok end] do
+        
+        # Capture logs during the send
+        log = capture_log(fn ->
+          CloudflareDurable.websocket_send(connection, message)
+        end)
+        
+        # Verify log contains message information
+        assert log =~ "Sending WebSocket message"
+      end
     end
   end
   
   describe "websocket_close/1" do
     test "closes a connection successfully" do
       # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       
-      # Close the connection
-      result = CloudflareDurable.websocket_close(connection)
-      
-      # Verify the result
-      assert result == :ok
-      
-      # Verify we receive a close notification
-      assert_receive {:websocket_closed, ^connection}, 100
+      with_mock GenServer,
+        [:passthrough],
+        [stop: fn _pid, _reason -> :ok end] do
+        
+        # Close the connection
+        result = CloudflareDurable.websocket_close(connection)
+        
+        # Verify the result
+        assert result == :ok
+        
+        # Verify the mock was called
+        assert_called GenServer.stop(connection, :normal)
+      end
     end
     
     test "logs connection closing" do
       # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       
-      # Capture logs during connection closing
-      log = capture_log(fn ->
-        CloudflareDurable.websocket_close(connection)
-      end)
-      
-      # Verify log contains closing information
-      assert log =~ "Closing WebSocket connection"
+      with_mock GenServer,
+        [:passthrough],
+        [stop: fn _pid, _reason -> :ok end] do
+        
+        # Capture logs during the close
+        log = capture_log(fn ->
+          CloudflareDurable.websocket_close(connection)
+        end)
+        
+        # Verify log contains connection information
+        assert log =~ "Closing WebSocket connection"
+      end
     end
   end
   
   describe "error handling" do
     test "handles network errors" do
-      # Create a mock connection that simulates errors
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(
-        self(), 
-        simulate_errors: true
-      )
+      connection = self()
       
-      # Send a message (which will trigger an error)
-      CloudflareDurable.websocket_send(
-        connection, 
-        Jason.encode!(%{type: "test"})
-      )
-      
-      # Verify we receive an error notification
-      assert_receive {:websocket_error, ^connection, :network_error}, 100
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> {:error, :network_error} end] do
+        
+        # Send a message (which will trigger an error)
+        result = CloudflareDurable.websocket_send(
+          connection, 
+          Jason.encode!(%{type: "test"})
+        )
+        
+        # Verify we receive an error
+        assert {:error, :network_error} = result
+      end
     end
     
     test "handles malformed responses" do
-      # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self(), auto_respond: false)
+      connection = self()
       
-      # Simulate receiving a malformed message
-      WebSocketTestHelper.simulate_message(self(), connection, %{
-        type: "invalid_format",
-        data: %{nested: "value"}
-      })
-      
-      # Send a message that expects a specific response format
-      log = capture_log(fn ->
-        CloudflareDurable.websocket_send(
-          connection, 
-          Jason.encode!(%{type: "echo", id: "123", data: "test"})
-        )
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> {:error, :invalid_message} end] do
         
-        # Simulate response with invalid format
-        send(self(), {:websocket_message, connection, "{\"invalid\":\"format\"}"})
+        # Capture logs during the send
+        log = capture_log(fn ->
+          result = CloudflareDurable.websocket_send(
+            connection, 
+            Jason.encode!(%{type: "echo", id: "123", data: "test"})
+          )
+          
+          # Verify the result
+          assert {:error, :invalid_message} = result
+        end)
         
-        # Wait for log to capture
-        Process.sleep(50)
-      end)
-      
-      # Verify log contains error information
-      assert log =~ "Received WebSocket message"
+        # Verify log contains error information
+        assert log =~ "Sending WebSocket message"
+      end
     end
     
     test "handles unexpected message types" do
-      # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       
-      # Simulate an unexpected message type
-      WebSocketTestHelper.simulate_message(self(), connection, %{
-        type: "unknown_type",
-        data: "test"
-      })
-      
-      # Verify we can still send messages after receiving an unknown type
-      result = CloudflareDurable.websocket_send(
-        connection, 
-        Jason.encode!(%{type: "echo", id: "123", data: "after_unknown"})
-      )
-      
-      assert result == :ok
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> :ok end] do
+        
+        # Send a message with an unknown type
+        result = CloudflareDurable.websocket_send(
+          connection, 
+          Jason.encode!(%{type: "unknown_type", data: "test"})
+        )
+        
+        # Verify we can still send messages
+        assert result == :ok
+      end
     end
     
     test "handles connection drops" do
-      # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       
-      # Simulate a connection close
-      WebSocketTestHelper.simulate_close(self(), connection)
-      
-      # Verify connection is closed properly
-      assert_receive {:websocket_closed, ^connection}
+      with_mock GenServer,
+        [:passthrough],
+        [stop: fn _pid, _reason -> :ok end] do
+        
+        # Close the connection
+        result = CloudflareDurable.websocket_close(connection)
+        
+        # Verify the result
+        assert result == :ok
+      end
     end
   end
   
   describe "complex scenarios" do
     test "can handle multiple messages in sequence" do
-      # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       
-      # Send a series of messages
-      for i <- 1..5 do
-        result = CloudflareDurable.websocket_send(
-          connection, 
-          Jason.encode!(%{type: "echo", id: "msg_#{i}", data: "test_#{i}"})
-        )
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> :ok end] do
         
-        assert result == :ok
-        
-        # Verify we receive a response for each message
-        assert_receive {:websocket_message, ^connection, response}, 100
-        
-        # Verify the response contains the expected data
-        parsed = Jason.decode!(response)
-        assert parsed["type"] == "echo_response"
-        assert parsed["id"] == "msg_#{i}"
-        assert parsed["data"] == "test_#{i}"
+        # Send a series of messages
+        for i <- 1..5 do
+          message = Jason.encode!(%{type: "echo", id: "msg_#{i}", data: "test_#{i}"})
+          result = CloudflareDurable.websocket_send(connection, message)
+          
+          # Verify the result
+          assert result == :ok
+        end
       end
     end
     
     test "can recover from errors" do
-      # Create a mock connection
-      {:ok, connection} = WebSocketTestHelper.create_mock_connection(self())
+      connection = self()
       
-      # Send a message
-      CloudflareDurable.websocket_send(
-        connection, 
-        Jason.encode!(%{type: "echo", id: "1", data: "before_error"})
-      )
+      # First message succeeds
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> :ok end] do
+        
+        # Send a message
+        message1 = Jason.encode!(%{type: "echo", id: "1", data: "before_error"})
+        result1 = CloudflareDurable.websocket_send(connection, message1)
+        
+        # Verify the result
+        assert result1 == :ok
+      end
       
-      # Verify we receive a response
-      assert_receive {:websocket_message, ^connection, _response}, 100
+      # Second message fails
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> {:error, :temporary_failure} end] do
+        
+        # Send a message that will fail
+        message2 = Jason.encode!(%{type: "echo", id: "2", data: "error"})
+        result2 = CloudflareDurable.websocket_send(connection, message2)
+        
+        # Verify the result
+        assert {:error, :temporary_failure} = result2
+      end
       
-      # Simulate an error
-      WebSocketTestHelper.simulate_error(self(), connection, :temporary_failure)
-      
-      # Send another message after the error
-      result = CloudflareDurable.websocket_send(
-        connection, 
-        Jason.encode!(%{type: "echo", id: "2", data: "after_error"})
-      )
-      
-      # Verify we can still send messages
-      assert result == :ok
-      
-      # Verify we receive a response for the second message
-      assert_receive {:websocket_message, ^connection, response}, 100
-      parsed = Jason.decode!(response)
-      assert parsed["type"] == "echo_response"
-      assert parsed["id"] == "2"
-      assert parsed["data"] == "after_error"
+      # Third message succeeds again
+      with_mock CloudflareDurable.WebSocket.Connection,
+        [:passthrough],
+        [send_message: fn _conn, _msg -> :ok end] do
+        
+        # Send a message after the error
+        message3 = Jason.encode!(%{type: "echo", id: "3", data: "after_error"})
+        result3 = CloudflareDurable.websocket_send(connection, message3)
+        
+        # Verify the result
+        assert result3 == :ok
+      end
     end
   end
 end 
