@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
 
-    <script defer src="dist/sidebar_items-D8C37856.js"></script>
+    <script defer src="dist/sidebar_items-D2B1E5F9.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-ALU6OERS.js"></script>
 
@@ -97,13 +97,13 @@ for distributed state management, WebSocket connections, and method invocation.<
   <span class="text">Usage</span>
 </h2>
 <pre><code class="makeup elixir" translate="no"><span class="c1"># Initialize a new Durable Object</span><span class="w">
-</span><span class="p" data-group-id="3809155064-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="3809155064-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="3809155064-2">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3809155064-3">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="3809155064-3">}</span><span class="p" data-group-id="3809155064-2">)</span><span class="w">
+</span><span class="p" data-group-id="3170247992-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="3170247992-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="3170247992-2">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3170247992-3">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="3170247992-3">}</span><span class="p" data-group-id="3170247992-2">)</span><span class="w">
 
 </span><span class="c1"># Call a method on the Durable Object</span><span class="w">
-</span><span class="p" data-group-id="3809155064-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="3809155064-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="3809155064-5">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;increment&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3809155064-6">%{</span><span class="ss">increment</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3809155064-6">}</span><span class="p" data-group-id="3809155064-5">)</span><span class="w">
+</span><span class="p" data-group-id="3170247992-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="3170247992-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="3170247992-5">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;increment&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3170247992-6">%{</span><span class="ss">increment</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="3170247992-6">}</span><span class="p" data-group-id="3170247992-5">)</span><span class="w">
 
 </span><span class="c1"># Open a WebSocket for real-time updates</span><span class="w">
-</span><span class="p" data-group-id="3809155064-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3809155064-7">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="3809155064-8">(</span><span class="s">&quot;counter&quot;</span><span class="p" data-group-id="3809155064-8">)</span></code></pre>
+</span><span class="p" data-group-id="3170247992-7">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="3170247992-7">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="3170247992-8">(</span><span class="s">&quot;counter&quot;</span><span class="p" data-group-id="3170247992-8">)</span></code></pre>
     </section>
 
 </div>
@@ -262,11 +262,31 @@ for distributed state management, WebSocket connections, and method invocation.<
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#websocket_close/1" data-no-tooltip="" translate="no">websocket_close(connection)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Closes a WebSocket connection.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#websocket_connect/3" data-no-tooltip="" translate="no">websocket_connect(object_id, path \\ &quot;/&quot;, opts \\ [])</a>
 
       </div>
 
         <div class="summary-synopsis"><p>Establishes a WebSocket connection to a Durable Object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#websocket_send/2" data-no-tooltip="" translate="no">websocket_send(connection, message)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Sends a message over a WebSocket connection.</p></div>
 
     </div>
 
@@ -293,7 +313,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">client_opts()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L31" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L32" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -327,7 +347,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">error_reason()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L30" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L31" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -361,7 +381,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">method_name()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L25" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L26" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -389,7 +409,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">method_params()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L26" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L27" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -417,7 +437,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">object_id()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L24" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L25" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -445,7 +465,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">state_key()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L27" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L28" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -473,7 +493,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">state_value()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L28" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L29" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -501,7 +521,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">websocket_connection()</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L29" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L30" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -543,7 +563,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">call_method(object_id, method, params, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L71" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L72" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -586,7 +606,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">delete_state(object_id, key, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L142" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L143" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -629,7 +649,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">get_namespace_object(namespace, name, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L159" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L160" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -674,7 +694,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">get_state(object_id, key \\ nil, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L107" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L108" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -717,7 +737,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">initialize(object_id, data, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L53" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L54" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -760,7 +780,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">open_websocket(object_id, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L90" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L91" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -803,7 +823,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">update_state(object_id, key, value, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L125" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L126" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -834,6 +854,46 @@ for distributed state management, WebSocket connections, and method invocation.<
 <ul><li><code class="inline">{:ok, response}</code> - Successfully updated state</li><li><code class="inline">{:error, reason}</code> - Failed to update state</li></ul>
   </section>
 </section>
+<section class="detail" id="websocket_close/1">
+
+  <div class="detail-header">
+    <a href="#websocket_close/1" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">websocket_close(connection)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L214" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> websocket_close(<a href="#t:websocket_connection/0">websocket_connection</a>()) :: :ok | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Closes a WebSocket connection.</p><h2 id="websocket_close/1-parameters" class="section-heading">
+  <a href="#websocket_close/1-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">connection</code> - WebSocket connection PID</li></ul><h2 id="websocket_close/1-returns" class="section-heading">
+  <a href="#websocket_close/1-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">:ok</code> - Connection closed successfully</li><li><code class="inline">{:error, reason}</code> - Failed to close connection</li></ul>
+  </section>
+</section>
 <section class="detail" id="websocket_connect/3">
 
     <span id="websocket_connect/1"></span>
@@ -848,7 +908,7 @@ for distributed state management, WebSocket connections, and method invocation.<
       <h1 class="signature" translate="no">websocket_connect(object_id, path \\ &quot;/&quot;, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L181" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L182" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -877,6 +937,47 @@ for distributed state management, WebSocket connections, and method invocation.<
   <span class="text">Returns</span>
 </h2>
 <ul><li><code class="inline">{:ok, pid}</code> - Successfully established WebSocket connection</li><li><code class="inline">{:error, reason}</code> - Failed to establish WebSocket connection</li></ul>
+  </section>
+</section>
+<section class="detail" id="websocket_send/2">
+
+  <div class="detail-header">
+    <a href="#websocket_send/2" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">websocket_send(connection, message)</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable.ex#L198" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> websocket_send(<a href="#t:websocket_connection/0">websocket_connection</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) ::
+  :ok | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Sends a message over a WebSocket connection.</p><h2 id="websocket_send/2-parameters" class="section-heading">
+  <a href="#websocket_send/2-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">connection</code> - WebSocket connection PID</li><li><code class="inline">message</code> - Message to send</li></ul><h2 id="websocket_send/2-returns" class="section-heading">
+  <a href="#websocket_send/2-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">:ok</code> - Message sent successfully</li><li><code class="inline">{:error, reason}</code> - Failed to send message</li></ul>
   </section>
 </section>
 

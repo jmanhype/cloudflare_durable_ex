@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
 
-    <script defer src="dist/sidebar_items-D8C37856.js"></script>
+    <script defer src="dist/sidebar_items-D2B1E5F9.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-ALU6OERS.js"></script>
 
@@ -223,6 +223,16 @@ allowing applications to leverage edge-located, stateful storage and processing.
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#get_namespace_object/4" data-no-tooltip="" translate="no">get_namespace_object(client, namespace, name, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets a namespace object ID from a namespace and name.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#get_state/3" data-no-tooltip="" translate="no">get_state(object_id, key \\ nil, opts \\ [])</a>
 
       </div>
@@ -258,6 +268,16 @@ allowing applications to leverage edge-located, stateful storage and processing.
       </div>
 
         <div class="summary-synopsis"><p>Updates the state of a Durable Object.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#websocket_connect/4" data-no-tooltip="" translate="no">websocket_connect(client, object_id, path, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Establishes a WebSocket connection to a Durable Object.</p></div>
 
     </div>
 
@@ -628,7 +648,7 @@ allowing applications to leverage edge-located, stateful storage and processing.
       <h1 class="signature" translate="no">call_method(object_id, method, params, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L79" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L89" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -671,7 +691,7 @@ allowing applications to leverage edge-located, stateful storage and processing.
       <h1 class="signature" translate="no">delete_state(object_id, key, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L213" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L236" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -702,6 +722,49 @@ allowing applications to leverage edge-located, stateful storage and processing.
 <ul><li><code class="inline">{:ok, response}</code> - Successfully deleted key</li><li><code class="inline">{:error, reason}</code> - Failed to delete key</li></ul>
   </section>
 </section>
+<section class="detail" id="get_namespace_object/4">
+
+    <span id="get_namespace_object/3"></span>
+
+  <div class="detail-header">
+    <a href="#get_namespace_object/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">get_namespace_object(client, namespace, name, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L268" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_namespace_object(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Gets a namespace object ID from a namespace and name.</p><h2 id="get_namespace_object/4-parameters" class="section-heading">
+  <a href="#get_namespace_object/4-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">client</code> - Client module</li><li><code class="inline">namespace</code> - Durable Object namespace</li><li><code class="inline">name</code> - Name within the namespace</li><li><code class="inline">opts</code> - Optional parameters:<ul><li><code class="inline">:worker_url</code> - Override the default worker URL</li></ul></li></ul><h2 id="get_namespace_object/4-returns" class="section-heading">
+  <a href="#get_namespace_object/4-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, object_id}</code> - Successfully got object ID</li><li><code class="inline">{:error, reason}</code> - Failed to get object ID</li></ul>
+  </section>
+</section>
 <section class="detail" id="get_state/3">
 
     <span id="get_state/1"></span>
@@ -716,7 +779,7 @@ allowing applications to leverage edge-located, stateful storage and processing.
       <h1 class="signature" translate="no">get_state(object_id, key \\ nil, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L145" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L168" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -802,7 +865,7 @@ allowing applications to leverage edge-located, stateful storage and processing.
       <h1 class="signature" translate="no">open_websocket(object_id, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L113" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L136" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -847,7 +910,7 @@ allowing applications to leverage edge-located, stateful storage and processing.
       <h1 class="signature" translate="no">update_state(object_id, key, value, opts \\ [])</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L181" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L204" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -876,6 +939,49 @@ allowing applications to leverage edge-located, stateful storage and processing.
   <span class="text">Returns</span>
 </h2>
 <ul><li><code class="inline">{:ok, response}</code> - Successfully updated state</li><li><code class="inline">{:error, reason}</code> - Failed to update state</li></ul>
+  </section>
+</section>
+<section class="detail" id="websocket_connect/4">
+
+    <span id="websocket_connect/3"></span>
+
+  <div class="detail-header">
+    <a href="#websocket_connect/4" class="detail-link" data-no-tooltip="" aria-label="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">websocket_connect(client, object_id, path, opts \\ [])</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/client.ex#L303" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> websocket_connect(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
+
+      </div>
+
+<p>Establishes a WebSocket connection to a Durable Object.</p><h2 id="websocket_connect/4-parameters" class="section-heading">
+  <a href="#websocket_connect/4-parameters" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Parameters</span>
+</h2>
+<ul><li><code class="inline">client</code> - Client module</li><li><code class="inline">object_id</code> - ID of the Durable Object to connect to</li><li><code class="inline">path</code> - Path to connect to</li><li><code class="inline">opts</code> - Connection options:<ul><li><code class="inline">:subscriber</code> - PID to receive WebSocket messages</li><li><code class="inline">:auto_reconnect</code> - Whether to automatically reconnect on disconnect (default: true)</li><li><code class="inline">:backoff_initial</code> - Initial backoff time in ms (default: 500)</li><li><code class="inline">:backoff_max</code> - Maximum backoff time in ms (default: 30000)</li></ul></li></ul><h2 id="websocket_connect/4-returns" class="section-heading">
+  <a href="#websocket_connect/4-returns" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Returns</span>
+</h2>
+<ul><li><code class="inline">{:ok, pid}</code> - Successfully established WebSocket connection</li><li><code class="inline">{:error, reason}</code> - Failed to establish WebSocket connection</li></ul>
   </section>
 </section>
 

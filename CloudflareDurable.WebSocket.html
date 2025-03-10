@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
 
-    <script defer src="dist/sidebar_items-D8C37856.js"></script>
+    <script defer src="dist/sidebar_items-D2B1E5F9.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-ALU6OERS.js"></script>
 
@@ -89,8 +89,8 @@ cloudflare_durable
 
 
     <section id="moduledoc">
-<p>WebSocket client for Cloudflare Durable Objects.</p><p>This module provides a simple interface for connecting to WebSocket endpoints
-in Cloudflare Durable Objects.</p>
+<p>Simple interface for connecting to WebSocket endpoints in Cloudflare Durable Objects.</p><p>This module provides functions for connecting to, sending messages to, and closing
+WebSocket connections to Durable Objects.</p>
     </section>
 
 </div>
@@ -102,6 +102,36 @@ in Cloudflare Durable Objects.</p>
       </a>
       <span class="text">Summary</span>
     </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:connection/0" data-no-tooltip="" translate="no">connection()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:error_reason/0" data-no-tooltip="" translate="no">error_reason()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:message/0" data-no-tooltip="" translate="no">message()</a>
+
+      </div>
+
+    </div>
+
+</div>
 <div class="summary-functions summary">
   <h2>
     <a href="#functions">Functions</a>
@@ -142,6 +172,103 @@ in Cloudflare Durable Objects.</p>
   </section>
 
 
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+      </a>
+      <span class="text">Types</span>
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:connection/0">
+
+  <div class="detail-header">
+    <a href="#t:connection/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">connection()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L10" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> connection() :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:error_reason/0">
+
+  <div class="detail-header">
+    <a href="#t:error_reason/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">error_reason()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L12" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> error_reason() ::
+  :connection_failed | :timeout | :network_error | <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">atom</a>() | <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:message/0">
+
+  <div class="detail-header">
+    <a href="#t:message/0" class="detail-link" data-no-tooltip="" aria-label="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+    </a>
+    <div class="heading-with-actions">
+      <h1 class="signature" translate="no">message()</h1>
+
+
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L11" class="icon-action" rel="help" aria-label="View Source">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        </a>
+
+    </div>
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> message() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
   <section id="functions" class="details-list">
     <h1 class="section-heading">
       <a class="hover-link" href="#functions">
@@ -160,7 +287,7 @@ in Cloudflare Durable Objects.</p>
       <h1 class="signature" translate="no">close(connection)</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L100" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L160" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -171,7 +298,7 @@ in Cloudflare Durable Objects.</p>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> close(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>()) :: :ok</pre>
+          <pre translate="no"><span class="attribute">@spec</span> close(<a href="#t:connection/0">connection</a>()) :: :ok</pre>
 
       </div>
 
@@ -181,7 +308,7 @@ in Cloudflare Durable Objects.</p>
   </a>
   <span class="text">Parameters</span>
 </h2>
-<ul><li><code class="inline">connection</code> - Connection PID</li></ul><h2 id="close/1-returns" class="section-heading">
+<ul><li><code class="inline">connection</code> - WebSocket connection</li></ul><h2 id="close/1-returns" class="section-heading">
   <a href="#close/1-returns" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
@@ -200,7 +327,7 @@ in Cloudflare Durable Objects.</p>
       <h1 class="signature" translate="no">connect(url)</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L20" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L25" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -211,7 +338,7 @@ in Cloudflare Durable Objects.</p>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> connect(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> connect(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="#t:connection/0">connection</a>()} | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
 
       </div>
 
@@ -221,13 +348,13 @@ in Cloudflare Durable Objects.</p>
   </a>
   <span class="text">Parameters</span>
 </h2>
-<ul><li><code class="inline">url</code> - WebSocket URL</li></ul><h2 id="connect/1-returns" class="section-heading">
+<ul><li><code class="inline">url</code> - URL of the WebSocket endpoint</li></ul><h2 id="connect/1-returns" class="section-heading">
   <a href="#connect/1-returns" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Returns</span>
 </h2>
-<ul><li><code class="inline">{:ok, connection}</code> - Successfully connected</li><li><code class="inline">{:error, reason}</code> - Failed to connect</li></ul>
+<ul><li><code class="inline">{:ok, connection}</code> - Successfully connected to the WebSocket</li><li><code class="inline">{:error, reason}</code> - Failed to connect to the WebSocket</li></ul>
   </section>
 </section>
 <section class="detail" id="send/2">
@@ -240,7 +367,7 @@ in Cloudflare Durable Objects.</p>
       <h1 class="signature" translate="no">send(connection, message)</h1>
 
 
-        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L46" class="icon-action" rel="help" aria-label="View Source">
+        <a href="https://github.com/jmanhype/cloudflare_durable_ex/blob/main/lib/cloudflare_durable/websocket.ex#L53" class="icon-action" rel="help" aria-label="View Source">
           <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         </a>
 
@@ -251,7 +378,7 @@ in Cloudflare Durable Objects.</p>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> send(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pid</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> send(<a href="#t:connection/0">connection</a>(), <a href="#t:message/0">message</a>()) :: :ok | {:error, <a href="#t:error_reason/0">error_reason</a>()}</pre>
 
       </div>
 
@@ -261,7 +388,7 @@ in Cloudflare Durable Objects.</p>
   </a>
   <span class="text">Parameters</span>
 </h2>
-<ul><li><code class="inline">connection</code> - Connection PID</li><li><code class="inline">message</code> - Message to send</li></ul><h2 id="send/2-returns" class="section-heading">
+<ul><li><code class="inline">connection</code> - WebSocket connection</li><li><code class="inline">message</code> - Message to send</li></ul><h2 id="send/2-returns" class="section-heading">
   <a href="#send/2-returns" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
