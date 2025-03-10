@@ -2,7 +2,7 @@ defmodule CloudflareDurable.MixProject do
   use Mix.Project
 
   @version "0.1.0"
-  @source_url "https://github.com/yourusername/cloudflare_durable_ex"
+  @source_url "https://github.com/jmanhype/cloudflare_durable_ex"
 
   def project do
     [
@@ -60,7 +60,7 @@ defmodule CloudflareDurable.MixProject do
 
   defp package do
     [
-      maintainers: ["Your Name"],
+      maintainers: ["jmanhype"],
       licenses: ["MIT"],
       links: %{"GitHub" => @source_url}
     ]
