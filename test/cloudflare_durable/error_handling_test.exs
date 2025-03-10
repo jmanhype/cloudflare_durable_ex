@@ -328,15 +328,27 @@ defmodule CloudflareDurable.ErrorHandlingTest do
         body: Jason.encode!(%{result: "success"})
       }
       
-      with_mock Finch, [:passthrough], [] do
-        # First call returns rate limit, second call succeeds
-        expect(Finch, :request, fn _, _ -> {:ok, response1} end)
-        expect(Finch, :request, fn _, _ -> {:ok, response2} end)
+      # Use a counter to simulate different responses on sequential calls
+      call_count = :ets.new(:call_count, [:set, :public])
+      :ets.insert(call_count, {:count, 0})
+      
+      with_mock Finch, 
+        [:passthrough], 
+        [request: fn _, _ -> 
+          count = :ets.update_counter(call_count, :count, 1)
+          if count == 1 do
+            {:ok, response1}
+          else
+            {:ok, response2} 
+          end
+        end] do
         
         result = CloudflareDurable.initialize("test-object", %{}, retry: true)
         
         assert {:ok, %{"result" => "success"}} = result
       end
+      
+      :ets.delete(call_count)
     end
     
     test "gives up after maximum retries" do
@@ -375,10 +387,20 @@ defmodule CloudflareDurable.ErrorHandlingTest do
         body: Jason.encode!(%{result: "success"})
       }
       
-      with_mock Finch, [:passthrough], [] do
-        # First call returns rate limit, second call succeeds
-        expect(Finch, :request, fn _, _ -> {:ok, response1} end)
-        expect(Finch, :request, fn _, _ -> {:ok, response2} end)
+      # Use a counter to simulate different responses on sequential calls
+      call_count = :ets.new(:call_count, [:set, :public])
+      :ets.insert(call_count, {:count, 0})
+      
+      with_mock Finch, 
+        [:passthrough], 
+        [request: fn _, _ -> 
+          count = :ets.update_counter(call_count, :count, 1)
+          if count == 1 do
+            {:ok, response1}
+          else
+            {:ok, response2} 
+          end
+        end] do
         
         # Measure time to verify we respect the retry-after header
         {time, result} = :timer.tc(fn ->
@@ -389,6 +411,8 @@ defmodule CloudflareDurable.ErrorHandlingTest do
         assert time >= 1_000_000
         assert {:ok, %{"result" => "success"}} = result
       end
+      
+      :ets.delete(call_count)
     end
   end
   
@@ -396,7 +420,7 @@ defmodule CloudflareDurable.ErrorHandlingTest do
     test "honors request timeout option" do
       with_mock Finch, 
         [:passthrough], 
-        [request: fn req, opts -> 
+        [request: fn _req, opts -> 
           # Verify the timeout option was passed correctly
           assert opts[:receive_timeout] == 500
           {:error, %Mint.TransportError{reason: :timeout}}
