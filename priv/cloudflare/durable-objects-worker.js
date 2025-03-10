@@ -20,28 +20,33 @@ export class DurableObject {
     const path = url.pathname;
     
     console.log(`Durable Object received request: ${request.method} ${path}`);
-
-    // WebSocket upgrade
-    if (request.headers.get("Upgrade") === "websocket") {
-      return this.handleWebSocketUpgrade(request);
-    }
-
-    // Handle HTTP methods
-    if (request.method === "GET") {
-      return this.handleGet(path, url.searchParams);
-    } else if (request.method === "POST") {
-      return this.handlePost(path, await request.json());
-    } else if (request.method === "PUT") {
-      return this.handlePut(path, await request.json());
-    } else if (request.method === "DELETE") {
-      return this.handleDelete(path);
-    } else {
-      return new Response("Method not allowed", { status: 405 });
+    
+    try {
+      // Route based on HTTP method
+      if (request.method === "GET") {
+        return await this.handleGet(path);
+      } else if (request.method === "POST") {
+        const data = await request.json();
+        console.log(`POST data: ${JSON.stringify(data)}`);
+        return await this.handlePost(path, data);
+      } else if (request.method === "PUT") {
+        const data = await request.json();
+        console.log(`PUT data: ${JSON.stringify(data)}`);
+        return await this.handlePut(path, data);
+      } else if (request.method === "DELETE") {
+        return await this.handleDelete(path);
+      } else {
+        return new Response("Method not allowed", { status: 405 });
+      }
+    } catch (error) {
+      console.error(`Error in Durable Object: ${error.stack || error}`);
+      return new Response(`Error: ${error.message}`, { status: 500 });
     }
   }
 
   // Handle GET requests
-  async handleGet(path, params) {
+  async handleGet(path) {
+    console.log(`Handling GET request for path: ${path}`);
     // Get state or specific key
     if (path === "/state") {
       const data = await this.storage.list();
@@ -66,28 +71,45 @@ export class DurableObject {
 
   // Handle POST requests
   async handlePost(path, data) {
+    console.log(`Handling POST request for path: ${path}`);
+    
+    // Handle initialization
+    if (path === "/initialize") {
+      console.log("Processing initialization request");
+      
+      // Store the initial data
+      for (const [key, value] of Object.entries(data)) {
+        await this.storage.put(key, value);
+        console.log(`Stored ${key}: ${JSON.stringify(value)}`);
+      }
+      
+      return new Response(JSON.stringify({ success: true }), {
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    
     // Custom method calls
     if (path.startsWith("/method/")) {
       const method = path.substring(8);
+      console.log(`Calling method: ${method}`);
       
-      // Check if method exists on this class
-      if (typeof this[method] === "function" && method.startsWith("method_")) {
-        try {
-          const result = await this[method](data);
-          return new Response(JSON.stringify({ success: true, result }), {
-            headers: { "Content-Type": "application/json" }
-          });
-        } catch (error) {
-          return new Response(JSON.stringify({ success: false, error: error.message }), {
-            status: 500,
-            headers: { "Content-Type": "application/json" }
-          });
-        }
-      } else {
-        return new Response(JSON.stringify({ success: false, error: "Method not found" }), {
-          status: 404,
+      // Check if the method exists
+      const methodName = `method_${method}`;
+      if (typeof this[methodName] !== "function") {
+        console.log(`Method not found: ${methodName}`);
+        return new Response(`Method not found: ${method}`, { status: 404 });
+      }
+      
+      // Call the method
+      try {
+        const result = await this[methodName](data);
+        console.log(`Method result: ${JSON.stringify(result)}`);
+        return new Response(JSON.stringify({ result }), {
           headers: { "Content-Type": "application/json" }
         });
+      } catch (error) {
+        console.error(`Error calling method ${method}: ${error.stack || error}`);
+        return new Response(`Error calling method: ${error.message}`, { status: 500 });
       }
     }
     
@@ -230,28 +252,28 @@ export class DurableObject {
 
   // Example method: echo
   async method_echo(data) {
-    console.log("Echo method called with data:", data);
+    console.log(`Echo method called with data: ${JSON.stringify(data)}`);
     return data;
   }
 
   // Example method: increment counter
   async method_increment(data) {
-    const key = data.key || "counter";
+    console.log(`Incrementing counter with data: ${JSON.stringify(data)}`);
     const increment = data.increment || 1;
     
     // Get current value
-    let value = await this.storage.get(key) || 0;
+    let value = await this.storage.get("value") || 0;
+    console.log(`Current value: ${value}`);
     
     // Increment value
-    value += increment;
+    value = Number(value) + increment;
+    console.log(`New value: ${value}`);
     
     // Store new value
-    await this.storage.put(key, value);
+    await this.storage.put("value", value);
     
-    // Notify connected clients
-    this.broadcastUpdate(key, value);
-    
-    return { key, value };
+    // Return new value
+    return { value };
   }
   
   // Example method: update document
@@ -295,10 +317,12 @@ export default {
       // Extract object ID from path
       const parts = path.split("/");
       if (parts.length < 3) {
+        console.log("Invalid object ID path format");
         return new Response("Invalid object ID", { status: 400 });
       }
       
       const objectId = parts[2];
+      console.log(`Routing to Durable Object with ID: ${objectId}`);
       
       // Construct a stub for the Durable Object
       const objectStub = env.DURABLE_OBJECT.get(env.DURABLE_OBJECT.idFromName(objectId));
@@ -306,6 +330,7 @@ export default {
       // Remove /object/{id} prefix from path
       const newUrl = new URL(request.url);
       newUrl.pathname = "/" + parts.slice(3).join("/");
+      console.log(`Forwarding to DO with new path: ${newUrl.pathname}`);
       
       // Forward the request to the Durable Object
       const newRequest = new Request(newUrl, request);
@@ -314,35 +339,51 @@ export default {
     
     // Initialize a new Durable Object
     if (path.startsWith("/initialize/")) {
+      console.log("Initialize endpoint called");
       const objectId = path.substring(12);
+      console.log(`Initializing object with ID: ${objectId}`);
       
       if (request.method !== "POST") {
+        console.log(`Method not allowed: ${request.method}`);
         return new Response("Method not allowed", { status: 405 });
       }
       
-      // Create a stub for the Durable Object
-      const objectStub = env.DURABLE_OBJECT.get(env.DURABLE_OBJECT.idFromName(objectId));
-      
-      // Get the initial data
-      const data = await request.json();
-      
-      // Initialize the Durable Object by storing the initial data
-      const initRequest = new Request(`https://${url.hostname}/state`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-      
-      return objectStub.fetch(initRequest);
+      try {
+        // Parse the request body
+        const data = await request.json();
+        console.log(`Initialization data: ${JSON.stringify(data)}`);
+        
+        // Get a stub for the Durable Object
+        const objectStub = env.DURABLE_OBJECT.get(env.DURABLE_OBJECT.idFromName(objectId));
+        
+        // Forward the initialization request to the Durable Object
+        const doRequest = new Request(new URL("/initialize", request.url), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        
+        console.log("Forwarding initialization to Durable Object");
+        const response = await objectStub.fetch(doRequest);
+        
+        // Return the response from the Durable Object
+        const responseText = await response.text();
+        console.log(`Initialization response: ${responseText}`);
+        
+        return new Response(responseText, {
+          status: response.status,
+          headers: { "Content-Type": "application/json" }
+        });
+      } catch (error) {
+        console.error(`Error initializing Durable Object: ${error.stack || error}`);
+        return new Response(`Error initializing Durable Object: ${error.message}`, { 
+          status: 500,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
     }
     
-    // Health check endpoint
-    if (path === "/health") {
-      return new Response(JSON.stringify({ status: "ok" }), {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-    
+    console.log(`No matching route for path: ${path}`);
     return new Response("Not found", { status: 404 });
   }
 }; 

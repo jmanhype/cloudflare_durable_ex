@@ -1,8 +1,12 @@
 defmodule CloudflareDurable.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.2.0"
   @source_url "https://github.com/jmanhype/cloudflare_durable_ex"
+  @description """
+  An Elixir client for Cloudflare Durable Objects, providing a simple interface for 
+  distributed state management, WebSocket connections, and method invocation.
+  """
 
   def project do
     [
@@ -11,7 +15,7 @@ defmodule CloudflareDurable.MixProject do
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      description: description(),
+      description: @description,
       package: package(),
       docs: docs(),
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -51,18 +55,16 @@ defmodule CloudflareDurable.MixProject do
     ]
   end
 
-  defp description do
-    """
-    An Elixir client for Cloudflare Durable Objects, providing a simple interface for 
-    distributed state management, WebSocket connections, and method invocation.
-    """
-  end
-
   defp package do
     [
+      name: "cloudflare_durable",
       maintainers: ["jmanhype"],
       licenses: ["MIT"],
-      links: %{"GitHub" => @source_url}
+      links: %{
+        "GitHub" => @source_url,
+        "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md"
+      },
+      files: ~w(lib priv mix.exs README.md CHANGELOG.md LICENSE CONTRIBUTING.md .formatter.exs)
     ]
   end
 
@@ -70,7 +72,22 @@ defmodule CloudflareDurable.MixProject do
     [
       main: "readme",
       source_url: @source_url,
-      extras: ["README.md"]
+      extras: [
+        "README.md",
+        "CHANGELOG.md", 
+        "CONTRIBUTING.md",
+        "LICENSE"
+      ],
+      groups_for_modules: [
+        "Core": [
+          CloudflareDurable,
+          CloudflareDurable.Client
+        ],
+        "WebSocket": [
+          CloudflareDurable.WebSocket.Connection,
+          CloudflareDurable.WebSocket.Supervisor
+        ]
+      ]
     ]
   end
 

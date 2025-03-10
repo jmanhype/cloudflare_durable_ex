@@ -1,0 +1,12 @@
+name = "chat-application-example"
+main = "chat_room.js"
+compatibility_date = "2023-09-01"
+
+[durable_objects]
+bindings = [
+  { name = "CHATROOM", class_name = "ChatRoom" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ChatRoom"] 

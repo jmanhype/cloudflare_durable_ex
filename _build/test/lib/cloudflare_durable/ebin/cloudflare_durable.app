@@ -1,0 +1,13 @@
+{application,cloudflare_durable,
+             [{modules,['Elixir.CloudflareDurable',
+                        'Elixir.CloudflareDurable.Application',
+                        'Elixir.CloudflareDurable.Client',
+                        'Elixir.CloudflareDurable.WebSocket.Connection',
+                        'Elixir.CloudflareDurable.WebSocket.Supervisor']},
+              {optional_applications,[]},
+              {applications,[kernel,stdlib,elixir,logger,finch,jason,
+                             mint_web_socket,telemetry,excoveralls,mock]},
+              {description,"An Elixir client for Cloudflare Durable Objects, providing a simple interface for \ndistributed state management, WebSocket connections, and method invocation.\n"},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.CloudflareDurable.Application',[]}}]}.
