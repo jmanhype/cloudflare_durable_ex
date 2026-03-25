@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="dist/html-elixir-6X3L5KMG.css" />
 
-    <script defer src="dist/sidebar_items-2B29FCAA.js"></script>
+    <script defer src="dist/sidebar_items-66835D95.js"></script>
     <script defer src="docs_config.js"></script>
     <script defer src="dist/html-ALU6OERS.js"></script>
 
@@ -85,281 +85,128 @@ cloudflare_durable
   </div>
 
 <p><a href="https://hex.pm/packages/cloudflare_durable"><img src="https://img.shields.io/hexpm/v/cloudflare_durable.svg" alt="Hex.pm"/></a>
-<a href="https://hexdocs.pm/cloudflare_durable"><img src="https://img.shields.io/badge/hex-docs-blue.svg" alt="Docs"/></a>
-<a href="license.html"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a>
-<a href="https://github.com/jmanhype/cloudflare_durable_ex/actions"><img src="https://github.com/jmanhype/cloudflare_durable_ex/workflows/CI/badge.svg" alt="Build Status"/></a></p><p>An Elixir client for Cloudflare Durable Objects, providing a simple interface for distributed state management, WebSocket connections, and method invocation. This library enables Elixir applications to leverage Cloudflare's globally distributed persistent state without managing complex infrastructure.</p><p><strong>📚 <a href="https://jmanhype.github.io/cloudflare_durable_ex/">View Full Documentation</a></strong> - Comprehensive guides, API reference, and examples</p><h2 id="features" class="section-heading">
-  <a href="#features" class="hover-link">
+<a href="https://github.com/jmanhype/cloudflare_durable_ex/actions"><img src="https://github.com/jmanhype/cloudflare_durable_ex/workflows/CI/badge.svg" alt="Build Status"/></a></p><p>Elixir client for Cloudflare Durable Objects. Provides HTTP and WebSocket interfaces for remote state management, method invocation, and real-time updates.</p><h2 id="what-it-does" class="section-heading">
+  <a href="#what-it-does" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Features</span>
+  <span class="text">What it does</span>
 </h2>
-<ul><li>Initialize Durable Objects with initial state</li><li>Call methods on remote Durable Objects</li><li>Establish WebSocket connections for real-time updates</li><li>Transparent error handling and reconnection</li><li>Event-based architecture using Telemetry</li><li>Configurable through standard Elixir configuration</li><li>Type specifications for better development experience</li></ul><h2 id="phoenix-integration" class="section-heading">
-  <a href="#phoenix-integration" class="hover-link">
+<ul><li>Initialize Durable Objects with a starting state</li><li>Call methods on remote Durable Objects via HTTP</li><li>Open WebSocket connections for bidirectional real-time communication</li><li>Automatic reconnection and transparent error handling</li><li>Telemetry events for observability</li><li>Phoenix adapter for Channels, LiveView, PubSub, and Presence integration</li></ul><h2 id="requirements" class="section-heading">
+  <a href="#requirements" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Phoenix Integration</span>
+  <span class="text">Requirements</span>
 </h2>
-<p>CloudflareDurable includes a Phoenix adapter that integrates with Phoenix Channels, LiveView, and PubSub for real-time communication with Cloudflare Durable Objects. For Phoenix applications, this provides a seamless way to interact with Durable Objects:</p><ul><li>Real-time updates via Phoenix Channels and LiveView</li><li>Bidirectional communication with WebSockets</li><li>LiveView components for easy UI integration</li><li>Presence tracking of connected clients</li><li>Automatic state synchronization</li></ul><p>See the <a href="readme.html">Phoenix Adapter Documentation</a> for setup and usage examples.</p><h2 id="documentation" class="section-heading">
-  <a href="#documentation" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Documentation</span>
-</h2>
-<ul><li><strong><a href="https://jmanhype.github.io/cloudflare_durable_ex/">GitHub Pages Documentation</a></strong> - Our main documentation site with comprehensive guides and examples</li><li><a href="https://hexdocs.pm/cloudflare_durable">API Reference</a> - Detailed API documentation on HexDocs</li><li><a href="https://github.com/jmanhype/cloudflare_durable_ex/tree/main/examples">Examples</a> - Code examples showing various use cases</li></ul><h2 id="installation" class="section-heading">
+<ul><li>Elixir &gt;= 1.14</li><li>A deployed Cloudflare Worker with Durable Objects (reference implementation included in <code class="inline">priv/cloudflare/</code>)</li></ul><h2 id="installation" class="section-heading">
   <a href="#installation" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Installation</span>
 </h2>
-<p>Add <code class="inline">cloudflare_durable</code> to your mix.exs dependencies:</p><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="0525285841-1">do</span><span class="w">
-  </span><span class="p" data-group-id="0525285841-2">[</span><span class="w">
-    </span><span class="p" data-group-id="0525285841-3">{</span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.2.0&quot;</span><span class="p" data-group-id="0525285841-3">}</span><span class="w">
-  </span><span class="p" data-group-id="0525285841-2">]</span><span class="w">
-</span><span class="k" data-group-id="0525285841-1">end</span></code></pre><p>Then run:</p><pre><code class="makeup bash" translate="no"><span class="">mix deps.get
-</span></code></pre><h2 id="configuration" class="section-heading">
+<p>Add to <code class="inline">mix.exs</code>:</p><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="9477890520-1">do</span><span class="w">
+  </span><span class="p" data-group-id="9477890520-2">[</span><span class="w">
+    </span><span class="p" data-group-id="9477890520-3">{</span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.2.0&quot;</span><span class="p" data-group-id="9477890520-3">}</span><span class="w">
+  </span><span class="p" data-group-id="9477890520-2">]</span><span class="w">
+</span><span class="k" data-group-id="9477890520-1">end</span></code></pre><p>Then run <a href="https://hexdocs.pm/mix/Mix.Tasks.Deps.Get.html"><code class="inline">mix deps.get</code></a>.</p><h2 id="configuration" class="section-heading">
   <a href="#configuration" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Configuration</span>
 </h2>
-<p>Add the following to your application configuration:</p><pre><code class="makeup elixir" translate="no"><span class="c1"># In config/config.exs</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="c1"># config/config.exs</span><span class="w">
 </span><span class="n">config</span><span class="w"> </span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w">
-  </span><span class="ss">worker_url</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="5552043082-1">(</span><span class="s">&quot;CLOUDFLARE_WORKER_URL&quot;</span><span class="p" data-group-id="5552043082-1">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s">&quot;https://your-worker.your-subdomain.workers.dev&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">account_id</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="5552043082-2">(</span><span class="s">&quot;CLOUDFLARE_ACCOUNT_ID&quot;</span><span class="p" data-group-id="5552043082-2">)</span><span class="p">,</span><span class="w">
-  </span><span class="ss">api_token</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="5552043082-3">(</span><span class="s">&quot;CLOUDFLARE_API_TOKEN&quot;</span><span class="p" data-group-id="5552043082-3">)</span><span class="p">,</span><span class="w">
-  </span><span class="c1"># Optional settings</span><span class="w">
-  </span><span class="ss">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30_000</span><span class="p">,</span><span class="w">                   </span><span class="c1"># Request timeout in milliseconds</span><span class="w">
-  </span><span class="ss">retry_count</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">                    </span><span class="c1"># Number of retries for failed requests</span><span class="w">
-  </span><span class="ss">retry_delay</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">                  </span><span class="c1"># Delay between retries in milliseconds</span><span class="w">
-  </span><span class="ss">websocket_reconnect_delay</span><span class="p">:</span><span class="w"> </span><span class="mi">1_000</span><span class="p">,</span><span class="w">  </span><span class="c1"># Delay before reconnecting WebSockets</span><span class="w">
-  </span><span class="ss">pool_size</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">                      </span><span class="c1"># HTTP connection pool size</span></code></pre><h3 id="environment-variables" class="section-heading">
-  <a href="#environment-variables" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Environment Variables</span>
-</h3>
-<p>For production use, we recommend setting the following environment variables:</p><ul><li><code class="inline">CLOUDFLARE_WORKER_URL</code>: URL of your deployed Cloudflare Worker</li><li><code class="inline">CLOUDFLARE_ACCOUNT_ID</code>: Your Cloudflare account ID</li><li><code class="inline">CLOUDFLARE_API_TOKEN</code>: API token with appropriate permissions</li></ul><h2 id="usage" class="section-heading">
+  </span><span class="ss">worker_url</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="2183190517-1">(</span><span class="s">&quot;CLOUDFLARE_WORKER_URL&quot;</span><span class="p" data-group-id="2183190517-1">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">account_id</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="2183190517-2">(</span><span class="s">&quot;CLOUDFLARE_ACCOUNT_ID&quot;</span><span class="p" data-group-id="2183190517-2">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">api_token</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="2183190517-3">(</span><span class="s">&quot;CLOUDFLARE_API_TOKEN&quot;</span><span class="p" data-group-id="2183190517-3">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">30_000</span><span class="p">,</span><span class="w">
+  </span><span class="ss">retry_count</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="ss">retry_delay</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+  </span><span class="ss">websocket_reconnect_delay</span><span class="p">:</span><span class="w"> </span><span class="mi">1_000</span><span class="p">,</span><span class="w">
+  </span><span class="ss">pool_size</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span></code></pre><table><thead><tr><th style="text-align: left;">Variable</th><th style="text-align: left;">Description</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">CLOUDFLARE_WORKER_URL</code></td><td style="text-align: left;">URL of your deployed Cloudflare Worker</td></tr><tr><td style="text-align: left;"><code class="inline">CLOUDFLARE_ACCOUNT_ID</code></td><td style="text-align: left;">Cloudflare account ID</td></tr><tr><td style="text-align: left;"><code class="inline">CLOUDFLARE_API_TOKEN</code></td><td style="text-align: left;">API token with appropriate permissions</td></tr></tbody></table><h2 id="usage" class="section-heading">
   <a href="#usage" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Usage</span>
 </h2>
-<h3 id="basic-examples" class="section-heading">
-  <a href="#basic-examples" class="hover-link">
+<h3 id="initialize-and-call-methods" class="section-heading">
+  <a href="#initialize-and-call-methods" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Basic Examples</span>
+  <span class="text">Initialize and call methods</span>
 </h3>
-<h4>Initialize a Durable Object</h4><pre><code class="makeup elixir" translate="no"><span class="kn">alias</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="kn">alias</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="w">
 
-</span><span class="c1"># Initialize a new Durable Object with an initial state</span><span class="w">
-</span><span class="p" data-group-id="2442634168-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p" data-group-id="2442634168-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="2442634168-2">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="2442634168-3">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="2442634168-3">}</span><span class="p" data-group-id="2442634168-2">)</span></code></pre><h4>Call Methods on a Durable Object</h4><pre><code class="makeup elixir" translate="no"><span class="c1"># Call a method on the Durable Object</span><span class="w">
-</span><span class="p" data-group-id="6941808308-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="6941808308-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="6941808308-2">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;increment&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6941808308-3">%{</span><span class="ss">increment</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="6941808308-3">}</span><span class="p" data-group-id="6941808308-2">)</span><span class="w">
-</span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p" data-group-id="6941808308-4">(</span><span class="n">result</span><span class="p" data-group-id="6941808308-4">)</span><span class="w"> </span><span class="c1"># =&gt; %{&quot;value&quot; =&gt; 1}</span><span class="w">
-
-</span><span class="c1"># Call another method</span><span class="w">
-</span><span class="p" data-group-id="6941808308-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="6941808308-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="6941808308-6">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;get_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6941808308-7">%{</span><span class="p" data-group-id="6941808308-7">}</span><span class="p" data-group-id="6941808308-6">)</span><span class="w">
-</span><span class="nc">IO</span><span class="o">.</span><span class="n">inspect</span><span class="p" data-group-id="6941808308-8">(</span><span class="n">result</span><span class="p" data-group-id="6941808308-8">)</span><span class="w"> </span><span class="c1"># =&gt; %{&quot;value&quot; =&gt; 1}</span></code></pre><h4>Open a WebSocket Connection</h4><pre><code class="makeup elixir" translate="no"><span class="c1"># Open a WebSocket for real-time updates</span><span class="w">
-</span><span class="p" data-group-id="4925303890-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="4925303890-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="4925303890-2">(</span><span class="s">&quot;counter&quot;</span><span class="p" data-group-id="4925303890-2">)</span><span class="w">
-
-</span><span class="c1"># Register a message handler</span><span class="w">
-</span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">register_handler</span><span class="p" data-group-id="4925303890-3">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="4925303890-4">fn</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-  </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="4925303890-5">(</span><span class="s">&quot;Received message: </span><span class="si" data-group-id="4925303890-6">#{</span><span class="n">inspect</span><span class="p" data-group-id="4925303890-7">(</span><span class="n">message</span><span class="p" data-group-id="4925303890-7">)</span><span class="si" data-group-id="4925303890-6">}</span><span class="s">&quot;</span><span class="p" data-group-id="4925303890-5">)</span><span class="w">
-</span><span class="k" data-group-id="4925303890-4">end</span><span class="p" data-group-id="4925303890-3">)</span><span class="w">
-
-</span><span class="c1"># Send a message through WebSocket (new simplified API)</span><span class="w">
-</span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">websocket_send</span><span class="p" data-group-id="4925303890-8">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="nc">Jason</span><span class="o">.</span><span class="n">encode!</span><span class="p" data-group-id="4925303890-9">(</span><span class="p" data-group-id="4925303890-10">%{</span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p" data-group-id="4925303890-10">}</span><span class="p" data-group-id="4925303890-9">)</span><span class="p" data-group-id="4925303890-8">)</span><span class="w">
-
-</span><span class="c1"># When done, close the connection properly</span><span class="w">
-</span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">websocket_close</span><span class="p" data-group-id="4925303890-11">(</span><span class="n">socket</span><span class="p" data-group-id="4925303890-11">)</span></code></pre><h3 id="advanced-examples" class="section-heading">
-  <a href="#advanced-examples" class="hover-link">
+</span><span class="p" data-group-id="5328329369-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="5328329369-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="5328329369-2">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5328329369-3">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="5328329369-3">}</span><span class="p" data-group-id="5328329369-2">)</span><span class="w">
+</span><span class="p" data-group-id="5328329369-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="5328329369-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="5328329369-5">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;increment&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5328329369-6">%{</span><span class="ss">increment</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="5328329369-6">}</span><span class="p" data-group-id="5328329369-5">)</span><span class="w">
+</span><span class="c1"># result =&gt; %{&quot;value&quot; =&gt; 1}</span></code></pre><h3 id="websocket-connection" class="section-heading">
+  <a href="#websocket-connection" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Advanced Examples</span>
+  <span class="text">WebSocket connection</span>
 </h3>
-<h4>Distributed Counter</h4><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.DistributedCounter</span><span class="w"> </span><span class="k" data-group-id="8522003737-1">do</span><span class="w">
-  </span><span class="kn">alias</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="w">
-  
-  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
-  Creates a new counter with a starting value
-  &quot;&quot;&quot;</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">create</span><span class="p" data-group-id="8522003737-2">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">start_value</span><span class="w"> </span><span class="o">\\</span><span class="w"> </span><span class="mi">0</span><span class="p" data-group-id="8522003737-2">)</span><span class="w"> </span><span class="k" data-group-id="8522003737-3">do</span><span class="w">
-    </span><span class="nc">Client</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="8522003737-4">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="8522003737-5">#{</span><span class="n">id</span><span class="si" data-group-id="8522003737-5">}</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8522003737-6">%{</span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="n">start_value</span><span class="p" data-group-id="8522003737-6">}</span><span class="p" data-group-id="8522003737-4">)</span><span class="w">
-  </span><span class="k" data-group-id="8522003737-3">end</span><span class="w">
-  
-  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
-  Increments the counter by the given amount
-  &quot;&quot;&quot;</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">increment</span><span class="p" data-group-id="8522003737-7">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">\\</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="8522003737-7">)</span><span class="w"> </span><span class="k" data-group-id="8522003737-8">do</span><span class="w">
-    </span><span class="k">case</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="8522003737-9">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="8522003737-10">#{</span><span class="n">id</span><span class="si" data-group-id="8522003737-10">}</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;increment&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8522003737-11">%{</span><span class="ss">increment</span><span class="p">:</span><span class="w"> </span><span class="n">amount</span><span class="p" data-group-id="8522003737-11">}</span><span class="p" data-group-id="8522003737-9">)</span><span class="w"> </span><span class="k" data-group-id="8522003737-12">do</span><span class="w">
-      </span><span class="p" data-group-id="8522003737-13">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="8522003737-13">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p" data-group-id="8522003737-14">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="8522003737-15">[</span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8522003737-15">]</span><span class="p" data-group-id="8522003737-14">}</span><span class="w">
-      </span><span class="p" data-group-id="8522003737-16">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8522003737-16">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">error</span><span class="w">
-    </span><span class="k" data-group-id="8522003737-12">end</span><span class="w">
-  </span><span class="k" data-group-id="8522003737-8">end</span><span class="w">
-  
-  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
-  Gets the current value of the counter
-  &quot;&quot;&quot;</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">get_value</span><span class="p" data-group-id="8522003737-17">(</span><span class="n">id</span><span class="p" data-group-id="8522003737-17">)</span><span class="w"> </span><span class="k" data-group-id="8522003737-18">do</span><span class="w">
-    </span><span class="k">case</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="8522003737-19">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="8522003737-20">#{</span><span class="n">id</span><span class="si" data-group-id="8522003737-20">}</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;get_value&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8522003737-21">%{</span><span class="p" data-group-id="8522003737-21">}</span><span class="p" data-group-id="8522003737-19">)</span><span class="w"> </span><span class="k" data-group-id="8522003737-22">do</span><span class="w">
-      </span><span class="p" data-group-id="8522003737-23">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="8522003737-23">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p" data-group-id="8522003737-24">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="8522003737-25">[</span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8522003737-25">]</span><span class="p" data-group-id="8522003737-24">}</span><span class="w">
-      </span><span class="p" data-group-id="8522003737-26">{</span><span class="ss">:error</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="8522003737-26">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">error</span><span class="w">
-    </span><span class="k" data-group-id="8522003737-22">end</span><span class="w">
-  </span><span class="k" data-group-id="8522003737-18">end</span><span class="w">
-  
-  </span><span class="na">@doc</span><span class="w"> </span><span class="s">&quot;&quot;&quot;
-  Subscribes to counter updates
-  &quot;&quot;&quot;</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">subscribe</span><span class="p" data-group-id="8522003737-27">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p" data-group-id="8522003737-27">)</span><span class="w"> </span><span class="k" data-group-id="8522003737-28">do</span><span class="w">
-    </span><span class="k">with</span><span class="w"> </span><span class="p" data-group-id="8522003737-29">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8522003737-29">}</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="8522003737-30">(</span><span class="s">&quot;counter-</span><span class="si" data-group-id="8522003737-31">#{</span><span class="n">id</span><span class="si" data-group-id="8522003737-31">}</span><span class="s">&quot;</span><span class="p" data-group-id="8522003737-30">)</span><span class="w"> </span><span class="k" data-group-id="8522003737-32">do</span><span class="w">
-      </span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">register_handler</span><span class="p" data-group-id="8522003737-33">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="8522003737-34">fn</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-        </span><span class="n">send</span><span class="p" data-group-id="8522003737-35">(</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="8522003737-36">{</span><span class="ss">:counter_update</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p" data-group-id="8522003737-37">[</span><span class="s">&quot;value&quot;</span><span class="p" data-group-id="8522003737-37">]</span><span class="p" data-group-id="8522003737-36">}</span><span class="p" data-group-id="8522003737-35">)</span><span class="w">
-      </span><span class="k" data-group-id="8522003737-34">end</span><span class="p" data-group-id="8522003737-33">)</span><span class="w">
-      </span><span class="p" data-group-id="8522003737-38">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="8522003737-38">}</span><span class="w">
-    </span><span class="k" data-group-id="8522003737-32">end</span><span class="w">
-  </span><span class="k" data-group-id="8522003737-28">end</span><span class="w">
-</span><span class="k" data-group-id="8522003737-1">end</span></code></pre><h4>Collaborative Document Editing</h4><pre><code class="makeup elixir" translate="no"><span class="c1"># Initialize a collaborative document</span><span class="w">
-</span><span class="p" data-group-id="7456855932-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="bp">_</span><span class="p" data-group-id="7456855932-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">initialize</span><span class="p" data-group-id="7456855932-2">(</span><span class="s">&quot;document-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7456855932-3">%{</span><span class="w">
-  </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Initial document content&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">version</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="ss">editors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7456855932-4">[</span><span class="p" data-group-id="7456855932-4">]</span><span class="w">
-</span><span class="p" data-group-id="7456855932-3">}</span><span class="p" data-group-id="7456855932-2">)</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="7145296114-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="7145296114-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Client</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="7145296114-2">(</span><span class="s">&quot;counter&quot;</span><span class="p" data-group-id="7145296114-2">)</span><span class="w">
 
-</span><span class="c1"># Join as an editor</span><span class="w">
-</span><span class="p" data-group-id="7456855932-5">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="7456855932-5">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="7456855932-6">(</span><span class="s">&quot;document-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;join&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7456855932-7">%{</span><span class="w">
-  </span><span class="ss">editor_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user-456&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;John Doe&quot;</span><span class="w">
-</span><span class="p" data-group-id="7456855932-7">}</span><span class="p" data-group-id="7456855932-6">)</span><span class="w">
+</span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">register_handler</span><span class="p" data-group-id="7145296114-3">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="7145296114-4">fn</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+  </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="7145296114-5">(</span><span class="s">&quot;Received: </span><span class="si" data-group-id="7145296114-6">#{</span><span class="n">inspect</span><span class="p" data-group-id="7145296114-7">(</span><span class="n">message</span><span class="p" data-group-id="7145296114-7">)</span><span class="si" data-group-id="7145296114-6">}</span><span class="s">&quot;</span><span class="p" data-group-id="7145296114-5">)</span><span class="w">
+</span><span class="k" data-group-id="7145296114-4">end</span><span class="p" data-group-id="7145296114-3">)</span><span class="w">
 
-</span><span class="c1"># Make an edit</span><span class="w">
-</span><span class="p" data-group-id="7456855932-8">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p" data-group-id="7456855932-8">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">call_method</span><span class="p" data-group-id="7456855932-9">(</span><span class="s">&quot;document-123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="7456855932-10">%{</span><span class="w">
-  </span><span class="ss">editor_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user-456&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Updated document content&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="ss">version</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-</span><span class="p" data-group-id="7456855932-10">}</span><span class="p" data-group-id="7456855932-9">)</span><span class="w">
-
-</span><span class="c1"># Open WebSocket for real-time updates</span><span class="w">
-</span><span class="p" data-group-id="7456855932-11">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">socket</span><span class="p" data-group-id="7456855932-11">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">CloudflareDurable.Client</span><span class="o">.</span><span class="n">open_websocket</span><span class="p" data-group-id="7456855932-12">(</span><span class="s">&quot;document-123&quot;</span><span class="p" data-group-id="7456855932-12">)</span><span class="w">
-</span><span class="nc">CloudflareDurable.WebSocket.Connection</span><span class="o">.</span><span class="n">register_handler</span><span class="p" data-group-id="7456855932-13">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="7456855932-14">fn</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-  </span><span class="k">case</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="k" data-group-id="7456855932-15">do</span><span class="w">
-    </span><span class="p" data-group-id="7456855932-16">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;edit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;editor&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">editor</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;version&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">version</span><span class="p" data-group-id="7456855932-16">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-      </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="7456855932-17">(</span><span class="s">&quot;</span><span class="si" data-group-id="7456855932-18">#{</span><span class="n">editor</span><span class="si" data-group-id="7456855932-18">}</span><span class="s"> updated the document to version </span><span class="si" data-group-id="7456855932-19">#{</span><span class="n">version</span><span class="si" data-group-id="7456855932-19">}</span><span class="s">&quot;</span><span class="p" data-group-id="7456855932-17">)</span><span class="w">
-      
-    </span><span class="p" data-group-id="7456855932-20">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;join&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;editor&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">editor</span><span class="p" data-group-id="7456855932-20">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-      </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="7456855932-21">(</span><span class="s">&quot;</span><span class="si" data-group-id="7456855932-22">#{</span><span class="n">editor</span><span class="si" data-group-id="7456855932-22">}</span><span class="s"> joined the document&quot;</span><span class="p" data-group-id="7456855932-21">)</span><span class="w">
-      
-    </span><span class="p" data-group-id="7456855932-23">%{</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;leave&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;editor&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">editor</span><span class="p" data-group-id="7456855932-23">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-      </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="7456855932-24">(</span><span class="s">&quot;</span><span class="si" data-group-id="7456855932-25">#{</span><span class="n">editor</span><span class="si" data-group-id="7456855932-25">}</span><span class="s"> left the document&quot;</span><span class="p" data-group-id="7456855932-24">)</span><span class="w">
-  </span><span class="k" data-group-id="7456855932-15">end</span><span class="w">
-</span><span class="k" data-group-id="7456855932-14">end</span><span class="p" data-group-id="7456855932-13">)</span></code></pre><h2 id="deploying-the-durable-objects-worker" class="section-heading">
-  <a href="#deploying-the-durable-objects-worker" class="hover-link">
+</span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">websocket_send</span><span class="p" data-group-id="7145296114-8">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="nc">Jason</span><span class="o">.</span><span class="n">encode!</span><span class="p" data-group-id="7145296114-9">(</span><span class="p" data-group-id="7145296114-10">%{</span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">value</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p" data-group-id="7145296114-10">}</span><span class="p" data-group-id="7145296114-9">)</span><span class="p" data-group-id="7145296114-8">)</span><span class="w">
+</span><span class="nc">CloudflareDurable</span><span class="o">.</span><span class="n">websocket_close</span><span class="p" data-group-id="7145296114-11">(</span><span class="n">socket</span><span class="p" data-group-id="7145296114-11">)</span></code></pre><h3 id="phoenix-integration" class="section-heading">
+  <a href="#phoenix-integration" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Deploying the Durable Objects Worker</span>
+  <span class="text">Phoenix integration</span>
+</h3>
+<p>The library includes a Phoenix adapter for Channels, LiveView, and Presence. See <code class="inline">lib/cloudflare_durable/phoenix/README.md</code> for setup.</p><h2 id="deploying-the-worker" class="section-heading">
+  <a href="#deploying-the-worker" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Deploying the Worker</span>
 </h2>
-<p>This library relies on a Cloudflare Worker script that handles the Durable Objects. A reference implementation is included in the <code class="inline">priv/cloudflare</code> directory.</p><ol><li><p>Install Wrangler (Cloudflare's CLI tool):</p><pre><code class="makeup bash" translate="no"><span class="">npm install -g wrangler
-</span></code></pre></li><li><p>Authenticate with Cloudflare:</p><pre><code class="makeup bash" translate="no"><span class="">wrangler login
-</span></code></pre></li><li><p>Deploy the Worker and Durable Object:</p><pre><code class="makeup bash" translate="no"><span class="">cd priv/cloudflare
-</span><span class="">wrangler publish
-</span></code></pre></li><li><p>Note the URL of your deployed worker and update your configuration.</p></li></ol><h3 id="reference-worker-implementation" class="section-heading">
-  <a href="#reference-worker-implementation" class="hover-link">
+<p>A reference Cloudflare Worker is in <code class="inline">priv/cloudflare/</code>:</p><pre><code class="makeup bash" translate="no"><span class="">npm install -g wrangler
+</span><span class="">wrangler login
+</span><span class="">cd priv/cloudflare &amp;&amp; wrangler publish
+</span></code></pre><h2 id="telemetry-events" class="section-heading">
+  <a href="#telemetry-events" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Reference Worker Implementation</span>
-</h3>
-<p>The reference implementation in the <code class="inline">priv/cloudflare</code> directory provides:</p><ul><li>REST API for Durable Object method invocation</li><li>WebSocket connections to Durable Objects</li><li>User-defined method handlers</li><li>Persistence of Durable Object state</li></ul><h2 id="telemetry-metrics" class="section-heading">
-  <a href="#telemetry-metrics" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Telemetry Metrics</span>
+  <span class="text">Telemetry events</span>
 </h2>
-<p>This library emits telemetry events that you can subscribe to:</p><ul><li><code class="inline">[:cloudflare_durable, :request, :start]</code> - When a request to a Durable Object starts</li><li><code class="inline">[:cloudflare_durable, :request, :stop]</code> - When a request to a Durable Object completes</li><li><code class="inline">[:cloudflare_durable, :websocket, :connected]</code> - When a WebSocket connection is established</li><li><code class="inline">[:cloudflare_durable, :websocket, :disconnected]</code> - When a WebSocket connection is closed</li><li><code class="inline">[:cloudflare_durable, :error]</code> - When an error occurs</li></ul><h3 id="example-telemetry-setup" class="section-heading">
-  <a href="#example-telemetry-setup" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Example Telemetry Setup</span>
-</h3>
-<pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Telemetry</span><span class="w"> </span><span class="k" data-group-id="0988571313-1">do</span><span class="w">
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">setup</span><span class="w"> </span><span class="k" data-group-id="0988571313-2">do</span><span class="w">
-    </span><span class="nc">:telemetry</span><span class="o">.</span><span class="n">attach</span><span class="p" data-group-id="0988571313-3">(</span><span class="w">
-      </span><span class="s">&quot;cloudflare-durable-request-handler&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="p" data-group-id="0988571313-4">[</span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w"> </span><span class="ss">:request</span><span class="p">,</span><span class="w"> </span><span class="ss">:stop</span><span class="p" data-group-id="0988571313-4">]</span><span class="p">,</span><span class="w">
-      </span><span class="o">&amp;</span><span class="n">handle_request_event</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="w">
-      </span><span class="no">nil</span><span class="w">
-    </span><span class="p" data-group-id="0988571313-3">)</span><span class="w">
-    
-    </span><span class="nc">:telemetry</span><span class="o">.</span><span class="n">attach</span><span class="p" data-group-id="0988571313-5">(</span><span class="w">
-      </span><span class="s">&quot;cloudflare-durable-error-handler&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="p" data-group-id="0988571313-6">[</span><span class="ss">:cloudflare_durable</span><span class="p">,</span><span class="w"> </span><span class="ss">:error</span><span class="p" data-group-id="0988571313-6">]</span><span class="p">,</span><span class="w">
-      </span><span class="o">&amp;</span><span class="n">handle_error_event</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="w">
-      </span><span class="no">nil</span><span class="w">
-    </span><span class="p" data-group-id="0988571313-5">)</span><span class="w">
-  </span><span class="k" data-group-id="0988571313-2">end</span><span class="w">
-  
-  </span><span class="kd">defp</span><span class="w"> </span><span class="nf">handle_request_event</span><span class="p" data-group-id="0988571313-7">(</span><span class="c">_event</span><span class="p">,</span><span class="w"> </span><span class="n">measurements</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="c">_config</span><span class="p" data-group-id="0988571313-7">)</span><span class="w"> </span><span class="k" data-group-id="0988571313-8">do</span><span class="w">
-    </span><span class="c1"># Log or record metrics about requests</span><span class="w">
-    </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="0988571313-9">(</span><span class="s">&quot;Request to </span><span class="si" data-group-id="0988571313-10">#{</span><span class="n">metadata</span><span class="o">.</span><span class="n">object_id</span><span class="si" data-group-id="0988571313-10">}</span><span class="s">#</span><span class="si" data-group-id="0988571313-11">#{</span><span class="n">metadata</span><span class="o">.</span><span class="n">method</span><span class="si" data-group-id="0988571313-11">}</span><span class="s"> completed in </span><span class="si" data-group-id="0988571313-12">#{</span><span class="n">measurements</span><span class="o">.</span><span class="n">duration</span><span class="si" data-group-id="0988571313-12">}</span><span class="s"> ms&quot;</span><span class="p" data-group-id="0988571313-9">)</span><span class="w">
-  </span><span class="k" data-group-id="0988571313-8">end</span><span class="w">
-  
-  </span><span class="kd">defp</span><span class="w"> </span><span class="nf">handle_error_event</span><span class="p" data-group-id="0988571313-13">(</span><span class="c">_event</span><span class="p">,</span><span class="w"> </span><span class="c">_measurements</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="c">_config</span><span class="p" data-group-id="0988571313-13">)</span><span class="w"> </span><span class="k" data-group-id="0988571313-14">do</span><span class="w">
-    </span><span class="c1"># Log or record error metrics</span><span class="w">
-    </span><span class="nc">IO</span><span class="o">.</span><span class="n">puts</span><span class="p" data-group-id="0988571313-15">(</span><span class="s">&quot;Error in CloudflareDurable: </span><span class="si" data-group-id="0988571313-16">#{</span><span class="n">inspect</span><span class="p" data-group-id="0988571313-17">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">error</span><span class="p" data-group-id="0988571313-17">)</span><span class="si" data-group-id="0988571313-16">}</span><span class="s">&quot;</span><span class="p" data-group-id="0988571313-15">)</span><span class="w">
-  </span><span class="k" data-group-id="0988571313-14">end</span><span class="w">
-</span><span class="k" data-group-id="0988571313-1">end</span></code></pre><h2 id="benchmarking" class="section-heading">
+<table><thead><tr><th style="text-align: left;">Event</th><th style="text-align: left;">When</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">[:cloudflare_durable, :request, :start]</code></td><td style="text-align: left;">Request begins</td></tr><tr><td style="text-align: left;"><code class="inline">[:cloudflare_durable, :request, :stop]</code></td><td style="text-align: left;">Request completes</td></tr><tr><td style="text-align: left;"><code class="inline">[:cloudflare_durable, :websocket, :connected]</code></td><td style="text-align: left;">WebSocket connected</td></tr><tr><td style="text-align: left;"><code class="inline">[:cloudflare_durable, :websocket, :disconnected]</code></td><td style="text-align: left;">WebSocket closed</td></tr><tr><td style="text-align: left;"><code class="inline">[:cloudflare_durable, :error]</code></td><td style="text-align: left;">Error occurs</td></tr></tbody></table><h2 id="benchmarking" class="section-heading">
   <a href="#benchmarking" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">Benchmarking</span>
 </h2>
-<p>CloudflareDurable includes benchmarking tools to measure the performance of various operations. These benchmarks are useful for:</p><ul><li>Comparing performance across different environments</li><li>Identifying bottlenecks in your application</li><li>Understanding the performance characteristics of Durable Objects</li></ul><h3 id="running-benchmarks" class="section-heading">
-  <a href="#running-benchmarks" class="hover-link">
+<pre><code class="makeup bash" translate="no"><span class="">mix benchmark             # All benchmarks
+</span><span class="">mix benchmark http        # HTTP only
+</span><span class="">mix benchmark websocket   # WebSocket only
+</span><span class="">mix benchmark state       # State operations only
+</span></code></pre><p>Configure with environment variables: <code class="inline">BENCHMARK_WORKER_URL</code>, <code class="inline">BENCHMARK_CONCURRENCY</code> (default: 4), <code class="inline">BENCHMARK_DURATION</code> (default: 5s).</p><h2 id="project-structure" class="section-heading">
+  <a href="#project-structure" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
-  <span class="text">Running Benchmarks</span>
-</h3>
-<p>To run all benchmarks:</p><pre><code class="makeup bash" translate="no"><span class="">mix benchmark
-</span></code></pre><p>To run a specific benchmark category:</p><pre><code class="makeup bash" translate="no"><span class=""># HTTP request benchmarks
-</span><span class="">mix benchmark http
-</span><span class="">
-</span><span class=""># WebSocket benchmarks
-</span><span class="">mix benchmark websocket
-</span><span class="">
-</span><span class=""># State operation benchmarks
-</span><span class="">mix benchmark state
-</span></code></pre><h3 id="benchmark-options" class="section-heading">
-  <a href="#benchmark-options" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Benchmark Options</span>
-</h3>
-<p>The following options are available:</p><ul><li><code class="inline">--output</code> or <code class="inline">-o</code>: Specify an output directory for HTML reports</li><li><code class="inline">--save</code> or <code class="inline">-s</code>: Save the benchmark results for later comparison</li><li><code class="inline">--compare</code> or <code class="inline">-c</code>: Compare with a previously saved benchmark result</li></ul><p>Example:</p><pre><code class="makeup bash" translate="no"><span class=""># Run benchmarks, save results, and generate HTML reports
-</span><span class="">mix benchmark --output reports --save
-</span><span class="">
-</span><span class=""># Compare current performance with previous results
-</span><span class="">mix benchmark --compare benchmarks/results/http_20231001_120000.benchee
-</span></code></pre><h3 id="configuring-benchmarks" class="section-heading">
-  <a href="#configuring-benchmarks" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Configuring Benchmarks</span>
-</h3>
-<p>Benchmarks can be configured using environment variables:</p><ul><li><code class="inline">BENCHMARK_WORKER_URL</code>: The URL of the Cloudflare Worker (default: <a href="http://localhost:8787">http://localhost:8787</a>)</li><li><code class="inline">BENCHMARK_CONCURRENCY</code>: The number of concurrent operations (default: 4)</li><li><code class="inline">BENCHMARK_DURATION</code>: The duration of each benchmark in seconds (default: 5)</li></ul><p>Example:</p><pre><code class="makeup bash" translate="no"><span class="">BENCHMARK_WORKER_URL=https://durable-objects.example.workers.dev \
-</span><span class="">BENCHMARK_CONCURRENCY=8 \
-</span><span class="">BENCHMARK_DURATION=10 \
-</span><span class="">mix benchmark
-</span></code></pre><h2 id="contributing" class="section-heading">
-  <a href="#contributing" class="hover-link">
-    <i class="ri-link-m" aria-hidden="true"></i>
-  </a>
-  <span class="text">Contributing</span>
+  <span class="text">Project structure</span>
 </h2>
-<p>Contributions are welcome! Please feel free to submit a Pull Request.</p><ol><li>Fork the repository</li><li>Create your feature branch (<code class="inline">git checkout -b feature/amazing-feature</code>)</li><li>Commit your changes (<code class="inline">git commit -m 'Add some amazing feature'</code>)</li><li>Push to the branch (<code class="inline">git push origin feature/amazing-feature</code>)</li><li>Open a Pull Request</li></ol><h2 id="license" class="section-heading">
+<pre><code class="makeup elixir" translate="no"><span class="n">lib</span><span class="o">/</span><span class="w">
+  </span><span class="n">cloudflare_durable</span><span class="o">.</span><span class="n">ex</span><span class="w">        </span><span class="c1"># Main module</span><span class="w">
+  </span><span class="n">cloudflare_durable</span><span class="o">/</span><span class="w">
+    </span><span class="n">client</span><span class="o">.</span><span class="n">ex</span><span class="w">                  </span><span class="c1"># HTTP client</span><span class="w">
+    </span><span class="n">http</span><span class="o">.</span><span class="n">ex</span><span class="w">                    </span><span class="c1"># HTTP layer</span><span class="w">
+    </span><span class="n">websocket</span><span class="o">.</span><span class="n">ex</span><span class="w">               </span><span class="c1"># WebSocket client</span><span class="w">
+    </span><span class="n">websocket</span><span class="o">/</span><span class="n">connection</span><span class="o">.</span><span class="n">ex</span><span class="w">    </span><span class="c1"># Connection management</span><span class="w">
+    </span><span class="n">websocket</span><span class="o">/</span><span class="n">supervisor</span><span class="o">.</span><span class="n">ex</span><span class="w">    </span><span class="c1"># Supervision tree</span><span class="w">
+    </span><span class="n">phoenix</span><span class="o">.</span><span class="n">ex</span><span class="w">                 </span><span class="c1"># Phoenix adapter</span><span class="w">
+    </span><span class="n">phoenix</span><span class="o">/</span><span class="w">                   </span><span class="c1"># Channel, LiveView, Presence modules</span><span class="w">
+    </span><span class="n">benchmark</span><span class="o">/</span><span class="w">                 </span><span class="c1"># Benchmarking tools</span><span class="w">
+</span><span class="n">examples</span><span class="o">/</span><span class="w">                      </span><span class="c1"># Counter, collaborative doc, WebSocket examples</span><span class="w">
+</span><span class="n">benchmarks</span><span class="o">/</span><span class="w">                    </span><span class="c1"># Benchee benchmark scripts</span></code></pre><h2 id="license" class="section-heading">
   <a href="#license" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
   </a>
   <span class="text">License</span>
 </h2>
-<p>This package is licensed under the MIT License - see the <a href="license.html">LICENSE</a> file for details. </p>
+<p>MIT</p>
 </div>
 
 <div class="bottom-actions" id="bottom-actions">
