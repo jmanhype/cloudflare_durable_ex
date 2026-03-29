@@ -40,24 +40,24 @@ defmodule CloudflareDurable.WebSocket do
   
   @doc """
   Sends a message over a WebSocket connection.
-  
+
   ## Parameters
     * `connection` - WebSocket connection
     * `message` - Message to send
-    
+
   ## Returns
     * `:ok` - Message sent successfully
     * `{:error, reason}` - Failed to send message
   """
   @spec send(connection(), message()) :: :ok | {:error, error_reason()}
-  def send(connection, message) do
+  def send(connection, message) when is_pid(connection) and is_binary(message) do
     Logger.debug("Sending WebSocket message: #{message}")
-    
+
     # In a real implementation, this would send a message over the WebSocket
     # For now, we'll simulate different types of responses based on the message
-    
+
     # Parse the message to determine the response
-    case Jason.decode(message) do
+    case safe_decode_json(message) do
       {:ok, %{"type" => "echo"} = decoded} ->
         # Echo the data back
         data = Map.get(decoded, "data", "")
@@ -135,35 +135,74 @@ defmodule CloudflareDurable.WebSocket do
           10
         )
         
-      {:error, _} ->
+      {:error, reason} ->
         # Invalid JSON
+        Logger.warning("Failed to parse WebSocket message: #{inspect(reason)}")
         Process.send_after(
           self(),
           {:websocket_error, connection, "invalid JSON"},
           10
         )
     end
-    
+
     :ok
+  rescue
+    error ->
+      Logger.error("Error sending WebSocket message: #{inspect(error)}")
+      {:error, :send_failed}
+  end
+
+  def send(_connection, _message) do
+    Logger.warning("Invalid send parameters: connection must be a PID and message must be a string")
+    {:error, :invalid_parameters}
   end
   
   @doc """
   Closes a WebSocket connection.
-  
+
   ## Parameters
     * `connection` - WebSocket connection
-    
+
   ## Returns
     * `:ok` - Connection closed successfully
+    * `{:error, reason}` - Failed to close connection
   """
-  @spec close(connection()) :: :ok
-  def close(connection) do
+  @spec close(connection()) :: :ok | {:error, error_reason()}
+  def close(connection) when is_pid(connection) do
     Logger.debug("Closing WebSocket connection")
-    
+
     # In a real implementation, this would close the WebSocket connection
     # For now, we'll simulate a close by sending a message
     Process.send_after(self(), {:websocket_closed, connection}, 10)
-    
+
     :ok
+  rescue
+    error ->
+      Logger.error("Error closing WebSocket connection: #{inspect(error)}")
+      {:error, :close_failed}
+  end
+
+  def close(_connection) do
+    Logger.warning("Invalid connection parameter: must be a PID")
+    {:error, :invalid_connection}
+  end
+
+  # Private helpers
+
+  @spec safe_decode_json(String.t()) :: {:ok, map()} | {:error, term()}
+  defp safe_decode_json(json) when is_binary(json) do
+    case Jason.decode(json) do
+      {:ok, decoded} when is_map(decoded) -> {:ok, decoded}
+      {:ok, _non_map} -> {:error, :expected_object}
+      {:error, _} = error -> error
+    end
+  rescue
+    error ->
+      Logger.error("JSON decode exception: #{inspect(error)}")
+      {:error, :decode_exception}
+  end
+
+  defp safe_decode_json(_non_binary) do
+    {:error, :invalid_json_input}
   end
 end 
